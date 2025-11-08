@@ -1,0 +1,22 @@
+version: "3.9"
+
+services:
+  frontend:
+    build:
+      context: ./front-end-news
+      dockerfile: Dockerfile.prod
+    container_name:frontend_prod
+    ports: 
+      - "4173:4173"
+    environment:
+      - NODE_ENV=production
+    command: npm run dev -- --host
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.prod
+    container_name: backend_prod
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production

@@ -1,0 +1,24 @@
+# version de node
+FROM node:20-alpine as builder
+
+# Directorio de trabajo
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+#Construye la carpeta build
+RUN npm run build
+
+# Etapa de la ejecución
+FROM node:20-alpine
+WORKDIR /app
+
+RUN npm install -g serve
+
+#copiar el build de la etapa pasada
+
+COPY --from=builder /app/build ./build
+
+EXPOSE 4173
+
+CMD ["server","-s","build","-l","4173"]
