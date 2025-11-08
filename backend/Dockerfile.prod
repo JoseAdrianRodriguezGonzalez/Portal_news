@@ -1,5 +1,5 @@
 # Version de node
-FROM node:20-alpine
+FROM node:20-alpine AS builder
 # Mi carpeta raiz dentro del contenedor
 WORKDIR /app
 # Copia todos los package json a raiz
@@ -12,9 +12,15 @@ RUN npm install
 #Copiamos el resto del codigo
 
 COPY . .
-#Exponemos el puerto 3000
+
+
+#Etapa final
+FROM node:20-alpine
+WORKDIR /app
+
+COPY --from=builder /app /app
 
 EXPOSE 3000
 
 #Comando por defecto 
-CMD ["npm","run","dev"]
+CMD ["npm","start"]
