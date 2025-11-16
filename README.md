@@ -30,4 +30,10 @@ docker compose -f docker-compose.prod.yml up --build
 > Usa este entorno solo para despliegues reales.
 > No es recomendable utilizarlo para pruebas locales.
 
+## 📱 Verlo en celular
 
+Si deseas ver el sitio web del front-end en celulares, deberás de ejecutar el siguiente comando
+```bash
+hostname -I | awk '{print $1}'
+```
+Al ejecutar este comando, te permite ver la ip para poder conectarte desde cualquier dispositivo, siempre y cuando estés en la misma red.
