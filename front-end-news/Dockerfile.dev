@@ -9,9 +9,10 @@ RUN npm install
 # Copiar el codigo fuente
 COPY . .
 #Exponer el puerto de desarrollo deSvelteKit
-EXPOSE 5173
 
 #Comando para modo desarrollo
-
-CMD ["npm,"run","dev","--","--host"]
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+EXPOSE 5173
+ENTRYPOINT ["/entrypoint.sh"]
 
