@@ -1,25 +1,27 @@
 <script>
   import dailyBugle from '$lib/assets/Daily_Bugle.webp';
-  import dayjs from 'dayjs';
-  import localizedFormat from 'dayjs/plugin/localizedFormat';
-  dayjs.extend(localizedFormat);
   import { onMount, onDestroy } from 'svelte';
-
-  let fechaHora = '';
-
-  function actualizarFecha(){
-    fechaHora = dayjs().format('dddd,MMMM D, YYYY HH:mm:ss');
+  let HourDate='';
+  const updateDate=()=>{
+    const now=new Date();
+    HourDate=now.toLocaleString("en-US",{
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false
+    });
   }
-  
-  /** @type {ReturnType<typeof setInterval>} */
-  let intervalo;
-  onMount(() => {
-    actualizarFecha();
-    intervalo = setInterval(actualizarFecha, 1000);
-  });
-
-  onDestroy(() => {
-    clearInterval(intervalo);
+  let interval;
+  onMount(()=>{
+    updateDate();
+    interval=setInterval(updateDate,1000);
+  })
+  onDestroy(()=>{
+    clearInterval(interval)
   });
 </script>
 
@@ -29,7 +31,7 @@
     <div class="hidden md:flex basis-1/3"></div>
     <!-- Fecha -->
     <div class="flex basis-1/2 justify-center md:basis-1/3">
-      <span class="text-gray-700 whitespace-nowrap text-xs md:text-lg">{fechaHora}</span>
+      <span class="text-gray-700 whitespace-nowrap text-xs md:text-lg">{HourDate}</span>
     </div>
 
     <!-- Búsqueda -->
@@ -67,12 +69,12 @@
   <!-- Navegación de secciones en inglés -->
   <nav class=" px-4 mt-1 py-1">
     <ul class="flex flex-row gap-2 text-black font-medium justify-center text-[3.25vw] md:gap-8 md:text-lg">
-      <li class="basis-1/6 flex flex-1 justify-center"><a href=/world>World</a></li>
-      <li  class="basis-1/6 flex flex-1 justify-center"><a href=/politics>Politics</a></li>
-      <li class="basis-1/6 flex flex-1 justify-center"><a href=/technology>Technology</a></li>
-      <li class="basis-1/6 flex flex-1 justify-center"><a href=/science>Science</a></li>
-      <li class="basis-1/6 flex flex-1 justify-center"><a href=/sports>Sports</a></li>
-      <li class="basis-1/6 flex flex-1 justify-center"><a href=/spiderman>Spiderman</a></li>
+      <li class="basis-1/6 flex flex-1 justify-center"><a href="/world">World</a></li>
+      <li  class="basis-1/6 flex flex-1 justify-center"><a href="/politics">Politics</a></li>
+      <li class="basis-1/6 flex flex-1 justify-center"><a href="/technology">Technology</a></li>
+      <li class="basis-1/6 flex flex-1 justify-center"><a href="/science">Science</a></li>
+      <li class="basis-1/6 flex flex-1 justify-center"><a href="/sports">Sports</a></li>
+      <li class="basis-1/6 flex flex-1 justify-center"><a href="/spiderman">Spiderman</a></li>
     </ul>
   </nav>
 </header>
