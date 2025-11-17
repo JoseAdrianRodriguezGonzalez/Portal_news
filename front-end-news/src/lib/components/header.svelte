@@ -8,14 +8,14 @@
     <div class="hidden md:flex basis-1/3"></div>
     <!-- Fecha -->
     <div class="flex basis-1/2 justify-center md:basis-1/3">
-      <span class="text-gray-700 whitespace-nowrap text-xs md:text-base">
+      <span class="text-gray-700 whitespace-nowrap text-xs md:text-lg">
         Friday, February 24, 2017
       </span>
     </div>
 
     <!-- Búsqueda -->
-    <div class="flex basis-1/2 justify-end md:justify-end md:pr-10 md:basis-1/3">
-      <div class="relative w-40 md:w-56">
+    <div class="flex basis-1/2 justify-center py-2 md:py-3 md:pr-10 md:basis-1/3">
+      <div class="relative w-30 md:w-3/4">
         <input
           type="text"
           placeholder="Search"
@@ -29,32 +29,31 @@
 
   </div>
   <!-- Logo + Login -->
-  <div class="flex items-center px-4 py-3">
+  <div class="flex items-center px-2 md:px-4 py-3">
     <!-- Columna izquierda vacía -->
     <div class="hidden md:flex basis-1/3"></div>
     <!-- Logo centrado -->
-    <div class="basis-1/2 flex justify-end">
-      <img src={dailyBugle} alt="Daily Bugle" class="h-10 md:h-20"/>
+    <div class="basis-2/3 flex justify-end md:justify-center">
+      <img src={dailyBugle} alt="Daily Bugle" class="h-15 md:h-20"/>
     </div>
 
     <!-- Botón Login -->
-    <div class="basis-1/2 flex justify-center md:justify-end">
-      <button class="bg-red-600 hover:bg-pink-500 text-white font-bold rounded-full transition text-sm md:text-lg px-6 py-2 md:px-10 md:py-3">
-        Login
-      </button>
+    <div class="basis-1/3 flex flex-col items-center">
+      <svg class="w-1/4 md:w-1/7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><!--!Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M320 312C386.3 312 440 258.3 440 192C440 125.7 386.3 72 320 72C253.7 72 200 125.7 200 192C200 258.3 253.7 312 320 312zM290.3 368C191.8 368 112 447.8 112 546.3C112 562.7 125.3 576 141.7 576L498.3 576C514.7 576 528 562.7 528 546.3C528 447.8 448.2 368 349.7 368L290.3 368z"/></svg>
+    <span class="text-sm md:text-base">login</span>
     </div>
 
   </div>
   <div class="w-full border-t-2 border-red-600 mt-2"></div>
   <!-- Navegación de secciones en inglés -->
-  <nav class="max-w-7xl mx-auto px-4 mt-1">
-    <ul class="flex gap-8 text-black font-medium text-lg justify-center">
-      <li><a href="#">World</a></li>
-      <li><a href="#">Politics</a></li>
-      <li><a href="#">Technology</a></li>
-      <li><a href="#">Science</a></li>
-      <li><a href="#">Sports</a></li>
-      <li><a href="#">Spiderman</a></li>
+  <nav class=" px-4 mt-1 py-1">
+    <ul class="flex flex-row gap-2 text-black font-medium justify-center text-[3.25vw] md:gap-8 md:text-lg">
+      <li class="basis-1/6 flex flex-1 justify-center"><a href="#">World</a></li>
+      <li  class="basis-1/6 flex flex-1 justify-center"><a href="#">Politics</a></li>
+      <li class="basis-1/6 flex flex-1 justify-center"><a href="#">Technology</a></li>
+      <li class="basis-1/6 flex flex-1 justify-center"><a href="#">Science</a></li>
+      <li class="basis-1/6 flex flex-1 justify-center"><a href="#">Sports</a></li>
+      <li class="basis-1/6 flex flex-1 justify-center"><a href="#">Spiderman</a></li>
     </ul>
   </nav>
 </header>
