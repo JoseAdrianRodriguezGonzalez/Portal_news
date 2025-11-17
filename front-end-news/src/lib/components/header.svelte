@@ -1,5 +1,26 @@
 <script>
   import dailyBugle from '$lib/assets/Daily_Bugle.webp';
+  import dayjs from 'dayjs';
+  import localizedFormat from 'dayjs/plugin/localizedFormat';
+  dayjs.extend(localizedFormat);
+  import { onMount, onDestroy } from 'svelte';
+
+  let fechaHora = '';
+
+  function actualizarFecha(){
+    fechaHora = dayjs().format('dddd,MMMM D, YYYY HH:mm:ss');
+  }
+  
+  /** @type {ReturnType<typeof setInterval>} */
+  let intervalo;
+  onMount(() => {
+    actualizarFecha();
+    intervalo = setInterval(actualizarFecha, 1000);
+  });
+
+  onDestroy(() => {
+    clearInterval(intervalo);
+  });
 </script>
 
 <header class="bg-[#f5ede1] flex flex-col border-y-4 border-red-600">
@@ -8,9 +29,7 @@
     <div class="hidden md:flex basis-1/3"></div>
     <!-- Fecha -->
     <div class="flex basis-1/2 justify-center md:basis-1/3">
-      <span class="text-gray-700 whitespace-nowrap text-xs md:text-lg">
-        Friday, February 24, 2017
-      </span>
+      <span class="text-gray-700 whitespace-nowrap text-xs md:text-lg">{fechaHora}</span>
     </div>
 
     <!-- Búsqueda -->
@@ -48,12 +67,12 @@
   <!-- Navegación de secciones en inglés -->
   <nav class=" px-4 mt-1 py-1">
     <ul class="flex flex-row gap-2 text-black font-medium justify-center text-[3.25vw] md:gap-8 md:text-lg">
-      <li class="basis-1/6 flex flex-1 justify-center"><a href="#">World</a></li>
-      <li  class="basis-1/6 flex flex-1 justify-center"><a href="#">Politics</a></li>
-      <li class="basis-1/6 flex flex-1 justify-center"><a href="#">Technology</a></li>
-      <li class="basis-1/6 flex flex-1 justify-center"><a href="#">Science</a></li>
-      <li class="basis-1/6 flex flex-1 justify-center"><a href="#">Sports</a></li>
-      <li class="basis-1/6 flex flex-1 justify-center"><a href="#">Spiderman</a></li>
+      <li class="basis-1/6 flex flex-1 justify-center"><a href=/world>World</a></li>
+      <li  class="basis-1/6 flex flex-1 justify-center"><a href=/politics>Politics</a></li>
+      <li class="basis-1/6 flex flex-1 justify-center"><a href=/technology>Technology</a></li>
+      <li class="basis-1/6 flex flex-1 justify-center"><a href=/science>Science</a></li>
+      <li class="basis-1/6 flex flex-1 justify-center"><a href=/sports>Sports</a></li>
+      <li class="basis-1/6 flex flex-1 justify-center"><a href=/spiderman>Spiderman</a></li>
     </ul>
   </nav>
 </header>
