@@ -38,10 +38,10 @@
     </div>
 
     <!-- Botón Login -->
-    <div class="basis-1/3 flex flex-col items-center">
+    <a href="/login" class="basis-1/3 flex flex-col items-center">
       <svg class="w-1/4 md:w-1/7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><!--!Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M320 312C386.3 312 440 258.3 440 192C440 125.7 386.3 72 320 72C253.7 72 200 125.7 200 192C200 258.3 253.7 312 320 312zM290.3 368C191.8 368 112 447.8 112 546.3C112 562.7 125.3 576 141.7 576L498.3 576C514.7 576 528 562.7 528 546.3C528 447.8 448.2 368 349.7 368L290.3 368z"/></svg>
     <span class="text-sm md:text-base">login</span>
-    </div>
+    </a>
 
   </div>
   <div class="w-full border-t-2 border-red-600 mt-2"></div>
