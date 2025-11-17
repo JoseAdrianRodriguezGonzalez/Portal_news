@@ -2,22 +2,23 @@
   import dailyBugle from '$lib/assets/Daily_Bugle.webp';
 </script>
 
-<header class="bg-[#f5ede1] border-b-2 border-red-600">
-  <!-- Línea roja superior -->
-  <div class="w-full border-t-2 border-red-600"></div>
-  
-  <!-- Contenedor fecha y busqueda-->
-  <div class="max-w-7xl mx-auto flex items-center justify-between px-4 py-3 relative">
-    <!-- Fecha centrada -->
-    <div class="w-full flex justify-center">
-      <span class="text-xs text-gray-700 whitespace-nowrap">Friday, February 24, 2017</span>
+<header class="bg-[#f5ede1] flex flex-col border-y-4 border-red-600">
+  <div class="flex items-center border-b-2 border-red-600 md:p-2">
+    <!-- Izquierda vacía (simula 3 columnas en desktop) -->
+    <div class="hidden md:flex basis-1/3"></div>
+    <!-- Fecha -->
+    <div class="flex basis-1/2 justify-center md:basis-1/3">
+      <span class="text-gray-700 whitespace-nowrap text-xs md:text-base">
+        Friday, February 24, 2017
+      </span>
     </div>
-    <!-- Barra de búsqueda -->
-    <div class="absolute right-4 top-1 flex items-center">
-      <div class="relative w-56">
-        <input 
-          type="text" 
-          placeholder="Search" 
+
+    <!-- Búsqueda -->
+    <div class="flex basis-1/2 justify-end md:justify-end md:pr-10 md:basis-1/3">
+      <div class="relative w-40 md:w-56">
+        <input
+          type="text"
+          placeholder="Search"
           class="rounded-full px-8 py-1 border border-red-500 focus:border-pink-500 outline-none transition w-full text-sm"
         />
         <svg class="absolute left-2 top-2 h-4 w-4 text-red-500 pointer-events-none" fill="currentColor" viewBox="0 0 20 20">
@@ -25,29 +26,26 @@
         </svg>
       </div>
     </div>
+
   </div>
-
-
-  <!-- Línea roja debajo de la fecha/búsqueda -->
-  <div class="w-full border-t border-red-600 mb-2"></div>
-
-  <!-- Logo y login -->
-  <div class="max-w-7xl mx-auto flex items-center justify-between px-4 py-3 relative">
-    <!-- Logo Daily Bugle (centro) -->
-    <div class="w-full flex justify-center">
-      <img src={dailyBugle} alt="Daily Bugle" class="h-20"/>
+  <!-- Logo + Login -->
+  <div class="flex items-center px-4 py-3">
+    <!-- Columna izquierda vacía -->
+    <div class="hidden md:flex basis-1/3"></div>
+    <!-- Logo centrado -->
+    <div class="basis-1/2 flex justify-end">
+      <img src={dailyBugle} alt="Daily Bugle" class="h-10 md:h-20"/>
     </div>
-    <!-- Botón ingresar (derecha) -->
-    <div class="flex-1 flex justify-end">
-      <button class="bg-red-600 hover:bg-pink-500 text-white font-bold rounded-full px-10 py-3 transition text-lg">
+
+    <!-- Botón Login -->
+    <div class="basis-1/2 flex justify-center md:justify-end">
+      <button class="bg-red-600 hover:bg-pink-500 text-white font-bold rounded-full transition text-sm md:text-lg px-6 py-2 md:px-10 md:py-3">
         Login
       </button>
     </div>
+
   </div>
-
-  <!-- Línea roja debajo del logo/login -->
   <div class="w-full border-t-2 border-red-600 mt-2"></div>
-
   <!-- Navegación de secciones en inglés -->
   <nav class="max-w-7xl mx-auto px-4 mt-1">
     <ul class="flex gap-8 text-black font-medium text-lg justify-center">
