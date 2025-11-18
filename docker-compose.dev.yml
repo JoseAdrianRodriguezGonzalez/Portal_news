@@ -47,9 +47,12 @@ services:
       - CASSANDRA_CONTACT_POINTS=cassandra
     command: npm run dev
     depends_on:
-      - mongo
-      - redis
-      - cassandra
+      mongo:
+        condition: service_started
+      redis:
+        condition: service_started
+      cassandra:
+        condition: service_healthy
 
   frontend:
     build:
