@@ -1,6 +1,56 @@
 version: "3.9"
 
 services:
+  mongo:
+    image: mongo:latest
+    container_name: portal_mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  redis:
+    image: redis:alpine
+    container_name: portal_redis
+    ports:
+      - "6379:6379"
+
+  cassandra:
+    image: cassandra:latest
+    container_name: portal_cassandra
+    ports:
+      - "9042:9042"
+    environment:
+      - CASSANDRA_DC=datacenter1
+      - CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch
+    healthcheck:
+      test: ["CMD", "cqlsh", "-e", "describe keyspaces"]
+      interval: 15s
+      timeout: 10s
+      retries: 10
+
+  #APLICACIONES
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev
+    container_name: backend_dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      - MONGO_URI=mongodb://mongo:27017/portal_news
+      - REDIS_HOST=redis
+      - CASSANDRA_CONTACT_POINTS=cassandra
+    command: npm run dev
+    depends_on:
+      - mongo
+      - redis
+      - cassandra
+
   frontend:
     build:
       context: ./front-end-news
@@ -14,16 +64,6 @@ services:
     environment:
       - NODE_ENV=development
       - VITE_HOST=0.0.0.0
-  backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile.dev
-    container_name: backend_dev
-    ports:
-      - "3000:3000"
-    volumes:
-      - ./backend:/app
-      - /app/node_modules
-    environment:
-      - NODE_ENV=development
-    command: npm run dev
+
+volumes:
+  mongo_data:
