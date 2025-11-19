@@ -1,0 +1,5 @@
+Aquí va la respuesta al cliente (Frontend). Recibe el req (petición), 
+decide qué hacer y devuelve el res (respuesta). 
+No tiene lógica de negocio compleja, solo orquesta.
+
+faltaria agregar lo demas funciones ahora solo tiene crear

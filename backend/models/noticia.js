@@ -1,49 +1,50 @@
 const mongoose = require('mongoose');
 
-// Estructura de una noticia
+// Definición del Esquema (El plano)
 const NoticiaSchema = new mongoose.Schema({
     titulo: {
         type: String,
-        required: true 
+        required: true
     },
-    // Necesario o no para la URL amigable SEO 
     slug: {
         type: String,
-        unique: true
+        unique: true, 
+        required: true
+        // Ejemplo: "el-hombre-arana-atrapa-ladron" (para la URL)
     },
-    // Necesario para la tarjeta del frontend (Home)
     resumen: {
         type: String,
-        required: false,
-        maxLength: 200 // Un preview corto
+        required: true,
+        maxLength: 200 // Texto corto para la tarjeta
     },
-    // La imagen que sale en la tarjeta
     imagen_url: {
-        type: String, 
-        default: 'https://via.placeholder.com/300' // Imagen por defecto si no suben una
+        type: String,
+        default: 'https://via.placeholder.com/300' // Imagen por defecto
     },
     contenido: {
-        type: Object, // JSON de TipTap (El artículo completo)
+        type: Object, // Aquí guardamos el JSON complejo del editor
+        required: true
+    },
+    categoria: {
+        type: String,
+        enum: ['Mundo', 'Política', 'Deportes', 'Tecnología', 'Entretenimiento', 'Spiderman'],
         required: true
     },
     autor_id: {
-        type: String, // El ID Cassandra
+        type: String, // Guardamos el UUID de Cassandra aquí
         required: true
     },
     autor_nombre: {
-        type: String,
+        type: String, // Guardamos el nombre para no buscarlo en Cassandra cada vez
         required: true
     },
-    categoria: { 
-        type: String, 
-        // Agregué las categorías que se ven en tu imagen de referencia
-        enum: ['Mundo', 'Política', 'Deportes', 'Tecnología', 'Entretenimiento', 'Spyderman', 'Ultimas noticias'], 
-        required: true
+    vistas: {
+        type: Number,
+        default: 0
     },
-    etiquetas: [String], 
     fecha_publicacion: {
         type: Date,
-        default: Date.now 
+        default: Date.now
     }
 });
 
