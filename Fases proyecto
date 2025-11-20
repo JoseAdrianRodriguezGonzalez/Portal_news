@@ -1,0 +1,96 @@
+Fases proyecto 
+
+Tarea #11: Elección y Definición de Roles de Base de Datos (En general todo esta dentro de config)
+	Se ha definido la arquitectura de persistencia de datos híbrida utilizando tres motores de base de datos distintos, asignando a cada uno la responsabilidad que mejor se adapta a su naturaleza.
+
+
+	MongoDB (Gestión de Contenido - Noticias):
+
+	Almacenamiento principal de las noticias y artículos.
+
+	guardar estructuras de datos. para el contenido de las noticias (títulos, cuerpo del artículo con formato, metadatos, etiquetas y categorías) que pueden variar en estructura o tamaño.
+
+	Implementación: Modelo Noticia definido en Mongoose.
+
+	Apache Cassandra (Gestión de Usuarios y Auditoría):
+
+	Rol: Almacenamiento de perfiles de usuario (Reporteros/Admin) y registro de actividad (Bitácora).
+
+	Base de datos columnar optimizada para alta disponibilidad y escritura masiva. para la tabla de bitacora, donde la escritura de logs de eventos es constante y requiere rapidez.
+
+	Implementación: Tablas usuarios y bitacora en el keyspace portal_news.
+
+	Redis (Caché y Rendimiento):
+
+	Rol: Gestión de datos volátiles de acceso rápido.
+
+	Almacenamiento en memoria de clave-valor. Se utilizará para almacenar tokens de sesión (JWT) y cachear las noticias más leídas o recientes, reduciendo la carga de lectura directa sobre MongoDB y acelerando la respuesta del frontend.
+
+	Implementación: Servicio redis conectado y cliente configurado en el backend.
+
+
+	Notas: Limpiar la parte de cassandra 
+
+	 por ahora dejarlo asi, pero ten en cuenta que "esa lógica de crear tablas" realmente debería vivir en un script separado llamadoinit-db.js que se ejecute una sola vez. Peor implementarlo al meterlo a la nube?
+
+
+#12 Desarrollo de tablas (dentro de config, para cassandra y en models para mongoose)
+
+	Se han desarrollado los modelos y scripts de definición de datos (DDL) para las tres bases de datos, asegurando que la estructura soporte tanto la integridad de los datos como los requerimientos visuales del Frontend (tarjetas de noticias, URLs amigables y login).
+
+	Detalle de la implementación:
+
+	Esquema de Noticias (MongoDB - Mongoose):
+
+	Estructura: Se diseñó un esquema que soporta contenido rico y metadatos para SEO.
+
+	Tablas de Usuarios y Auditoría (Cassandra):
+
+	Archivo: Script de inicialización en backend/config/cassandra.js (Aunque seria mejor usar el init)
+
+	Gestión de Sesiones (Redis):
+
+	Estrategia: Configuración Schemaless (sin esquema rígido). El cliente está configurado para almacenar pares clave-valor con tiempo de expiración (TTL), ideal para tokens de sesión volátiles y caché de consultas frecuentes.
+
+	***Faltaria aplicar no solo el TTL si no la metolodiogia de manejo de cache probablemente usando la de menos frecuente
+
+#13 Añadir a Docker (Todo es desde dev, produccion aun no esta completo)
+
+	***Falta archivo de variables de entorno?
+	***Corregir apartado de envioremtn en el compsoe?
+
+	Falatria agregar algunas cosas a cada servicio en especifico pero en general funciona como primer avance
+
+Se realizó el despliegue del stack completo (docker-compose up). Se verificó mediante logs la interconexión exitosa entre el servicio de backend (Node.js) y los tres servicios de persistencia (Mongo, Redis, Cassandra). Correcciones: Se ajustó la política de inicio (depends_on) con healthchecks para Cassandra, asegurando que el backend espere la disponibilidad del puerto 9042 antes de iniciar, eliminando errores de conexión ECONNREFUSED.
+
+proceso de ejecucion (hasta el momento)
+
+
+	0. Bajar todo
+	docker-compose -f docker-compose.dev.yml down
+
+
+	# 1. Levantar los contenedores
+	docker-compose -f docker-compose.dev.yml up -d --build
+
+	# 2. Instalar las dependencias dentro del contenedor (si no, da error de módulos)
+	docker exec -it backend_dev npm install mongoose redis cassandra-driver
+
+	# 3. Ver logs para confirmar conexión (deben salir 3 mensajes de éxito)
+	docker logs -f backend_dev
+
+
+	Y debe salir algo así:
+
+	Hola mundo fsjdfhshsdksjkh
+	Servidor corriendo en puerto 3000
+	MongoDB Conectado
+	Redis Conectado
+	Conectado al servidor Cassandra
+	Keyspace configurado
+	Tabla: Usuarios
+	Tabla Bitácora lista
+
+#14 Definición de clases y objetos para los esquemas de las bases de datos
+
+#15 Definición de lógica de negocio

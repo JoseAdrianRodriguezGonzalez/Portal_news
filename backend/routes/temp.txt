@@ -1,0 +1,1 @@
+Solo define las URL (ej: /api/usuarios/login). Apuntan a un controller
