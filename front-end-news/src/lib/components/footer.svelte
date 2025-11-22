@@ -1,5 +1,5 @@
 <script> 
-    import dailyBugle from '$lib/assets/Daily_Bugle.webp';
+  import dailyBugle from '$lib/assets/logodailypng.svg';
 </script>
 
 <footer class="bg-red-600 flex flex-col">

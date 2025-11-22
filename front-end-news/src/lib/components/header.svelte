@@ -1,5 +1,5 @@
 <script>
-  import dailyBugle from '$lib/assets/Daily_Bugle.webp';
+  import dailyBugle from '$lib/assets/logodaily.svg';
   import { onMount, onDestroy } from 'svelte';
   let HourDate='';
   const updateDate=()=>{
