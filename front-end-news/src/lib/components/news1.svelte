@@ -44,7 +44,6 @@
     py-3 
     rounded-b-[10px]
     border-2
-    border-white
     h-16  
     flex 
     items-center 
