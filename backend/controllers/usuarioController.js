@@ -1,8 +1,9 @@
+//ESta seccion, utiliza las apis para recibir una peticion y mandar algo al service
 const UsuarioService = require('../services/usuarioService');
 
 const crearUsuario = async (req, res) => {
     // [NUEVO] Agrega esta línea para ver los datos en la terminal del docker
-    console.log("📨 Petición de registro recibida:", req.body); 
+  console.log("📨 Petición de registro recibida:", req.body); 
 
     try {
         const { nombre, email, password, rol } = req.body;
