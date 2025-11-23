@@ -1,3 +1,4 @@
+//Esta sección de servicios, hace funciones particulares para el usuario. Aquí están las validaciones 
 const UsuarioModel = require('../models/Usuario');
 // const bcrypt = require('bcrypt'); // (Pendiente instalar para encriptar pass)
 
