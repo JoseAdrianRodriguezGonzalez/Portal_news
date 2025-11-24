@@ -1,2 +1,0 @@
-Aquí crearás uno 
-que pregunte a Redis si el usuario tiene sesión activa antes de dejarlo publicar una noticia.
