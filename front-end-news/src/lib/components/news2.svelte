@@ -31,7 +31,7 @@
     top-2 
     left-2 
     bg-red-600 
-    text-white 
+    text-gray 
     text-xs 
     font-bold 
     uppercase 
@@ -41,7 +41,7 @@
     rounded
     shadow-md
     z-10
-    whitespace-nowrap
+    grayspace-nowrap
   ">
     {section}
   </div>
