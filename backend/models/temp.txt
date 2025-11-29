@@ -1,0 +1,14 @@
+***Archivo de indicaciones, borrar cuando sea necesario***
+
+
+Es el acceso a la base de datos (el Schema de Mongo y la Clase Manual de Cassandra). 
+Nadie más que estos archivos debe tocar SQL o Queries.
+
+
+1. No se agrego una clase para noticias (mongo) pq el schema ya tiene definidas funciones como 
+save, delete, etc
+
+2. La clases de cassandra es una sola por usuario, con una variable de rol para el superusuario
+y para el admin, las funciones de cada usuario se hacen despues en base al rol
+
+Aunque podria editarse para 2 clases, una por el tipo de usuario
