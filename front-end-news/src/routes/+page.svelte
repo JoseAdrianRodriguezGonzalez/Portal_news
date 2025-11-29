@@ -10,7 +10,7 @@
 
 <div class="w-full border-t-2 border-red-600 mt-2"></div>
 
-<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  gap-6  p-6 
+<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  gap-6  p-8
   max-w-7xl 
   mx-auto">
 <News1 title="Spider-Man Saves City from Sinister Six Attack" imagen={notaSpider} link="#" />
