@@ -1,22 +1,15 @@
-// Importamos el cliente configurado y la librería para generar IDs
+// backend/models/Usuario.js
 const { client } = require('../config/cassandra');
 const { v4: uuidv4 } = require('uuid');
-const UsuarioModel = {
 
-    /**
-     * Crea un nuevo usuario en Cassandra.
-     * @param {string} nombre - Nombre real
-     * @param {string} email - Correo (se usará para login)
-     * @param {string} password - Contraseña (debería ir hasheada en el futuro)
-     * @param {string} rol - 'admin' (CEO) o 'reportero'
-     */
-    async crearUsuario(nombre, email, password, rol) {
+class UsuarioModel {
+
+    // CREATE 
+    static async crear(nombre, email, password, rol) {
         const rolesPermitidos = ['admin', 'reportero'];
-        if (!rolesPermitidos.includes(rol)) {
-            throw new Error("Rol inválido. Solo se permite: admin o reportero");
-        }
+        if (!rolesPermitidos.includes(rol)) throw new Error("Rol inválido");
 
-        const id = uuidv4(); // Generamos ID único
+        const id = uuidv4();
         const fecha = new Date();
         
         const query = `
@@ -24,40 +17,48 @@ const UsuarioModel = {
             VALUES (?, ?, ?, ?, ?, ?)
         `;
         
-        // Ejecutamos la query inyectando las variables
-        try {
-            await client.execute(query, [id, nombre, email, password, rol, fecha], { prepare: true });
-            return { id, nombre, email, rol, mensaje: "Usuario creado con éxito" };
-        } catch (error) {
-            console.error("Error en Cassandra Creando Usuario:", error);
-            throw error;
-        }
-    },
-
-
-    async buscarPorEmail(email) {
-        const query = 'SELECT * FROM usuarios WHERE email = ?';
-        
-        try {
-            const result = await client.execute(query, [email], { prepare: true });
-            // Cassandra devuelve un arreglo, tomamos el primero
-            return result.first(); 
-        } catch (error) {
-            console.error("Error buscando usuario:", error);
-            throw error;
-        }
-    },
-
-
-    async buscarPorId(id) {
-        const query = 'SELECT * FROM usuarios WHERE id = ?';
-        try {
-            const result = await client.execute(query, [id], { prepare: true });
-            return result.first();
-        } catch (error) {
-            throw error;
-        }
+        await client.execute(query, [id, nombre, email, password, rol, fecha], { prepare: true });
+        return { id, nombre, email, rol };
     }
-};
+
+    // READ 
+    static async buscarPorEmail(email) {
+        const query = 'SELECT * FROM usuarios WHERE email = ?';
+        const result = await client.execute(query, [email], { prepare: true });
+        return result.first();
+    }
+
+    // READ (Obtener Uno por ID) 
+    static async buscarPorId(id) {
+        const query = 'SELECT * FROM usuarios WHERE id = ?';
+        const result = await client.execute(query, [id], { prepare: true });
+        return result.first();
+    }
+
+    // READ (Listar Todos)
+    static async obtenerTodos() {
+        const query = 'SELECT id, nombre, email, rol, fecha_registro FROM usuarios';
+        const result = await client.execute(query, [], { prepare: true });
+        return result.rows;
+    }
+
+    // UPDATE 
+    static async actualizar(id, nombre, rol) {
+        const query = `
+            UPDATE usuarios 
+            SET nombre = ?, rol = ? 
+            WHERE id = ?
+        `;
+        await client.execute(query, [nombre, rol, id], { prepare: true });
+        return { id, nombre, rol, mensaje: "Usuario actualizado" };
+    }
+
+    // DELETE 
+    static async eliminar(id) {
+        const query = 'DELETE FROM usuarios WHERE id = ?';
+        await client.execute(query, [id], { prepare: true });
+        return { mensaje: "Usuario eliminado", id };
+    }
+}
 
 module.exports = UsuarioModel;
