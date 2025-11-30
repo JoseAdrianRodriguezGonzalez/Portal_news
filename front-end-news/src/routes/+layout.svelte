@@ -5,8 +5,10 @@
 	import Footer from '$lib/components/footer.svelte';
   import {page} from "$app/stores";
 
-  $:showLayout=!$page.url.pathname.startsWith("/login");
-  $:showLayout=!$page.url.pathname.startsWith("/users");
+ $: showLayout = 
+    !$page.url.pathname.startsWith("/login") &&
+    !$page.url.pathname.startsWith("/users");
+
 
 </script>
 
