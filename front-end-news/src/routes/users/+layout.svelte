@@ -1,24 +1,37 @@
 <script>
 import { page } from '$app/stores';
 import dailyBugle from '$lib/assets/welcome.svg';
-  export let data;
-  const{ usuarios, UsuarioActual}=data;
-  console.log(UsuarioActual);
-  // Determinar qué página estamos mostrando
-  $: currentPath = $page.url.pathname;
-  $: isAdmin = UsuarioActual?.rol === 'admin';
-  $: isJournalist = UsuarioActual?.rol === 'journalist';
-  
-  // Mostrar tabla solo en páginas específicas
-  $: showTable = isAdmin || isJournalist;
-  
+import logout from '$lib/assets/logout.png';
+
+export let data;
+const{ usuarios, UsuarioActual}=data;
+console.log(UsuarioActual);
+// Determinar qué página estamos mostrando
+$: currentPath = $page.url.pathname;
+$: isAdmin = UsuarioActual?.rol === 'admin';
+$: isJournalist = UsuarioActual?.rol === 'journalist';
+
+// Mostrar tabla solo en páginas específicas
+$: showTable = isAdmin || isJournalist;
+
+let toggled = false;
+
+function toggle() {
+  toggled = !toggled;
+}
+
 
 </script>
 
 <main class="min-h-screen">
-<!-- Header con logo arriba -->
-<div class="basis-2/3 flex justify-end md:justify-center">
-    <img src={dailyBugle} alt="Daily Bugle" class="h-15 md:h-20" />
+<!-- Header con logo arriba y logour al lado derec  -->
+<!-- Header con logo e icono de logout a la derecha -->
+<div class="flex justify-end md:justify-center items-center gap-4">
+  <img src={dailyBugle} alt="Daily Bugle" class="h-10 md:h-25" />
+  <button on:click={toggle} class="flex items-center justify-center">
+    <img src={logout} alt="Logout" class="h-6 md:h-14" />
+  </button>
+
 </div>
 
 <!-- Barra de título y búsqueda -->
@@ -36,6 +49,7 @@ import dailyBugle from '$lib/assets/welcome.svg';
             {/if}
             
         </h1>
+        
     </div>
     
     <!-- Búsqueda -->

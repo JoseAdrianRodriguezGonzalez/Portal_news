@@ -1,13 +1,13 @@
 <script>
   // Datos temporales de prueba (después vendrán de la BD)
-  export let data;
-  const {usuarios,UsuarioActual} = data;
+export let data;
+const {usuarios,UsuarioActual} = data;
 console.log("UsuarioActual en admin page.svelte:", UsuarioActual);
 console.log("Usuarios en admin page.svelte:", usuarios);
 function deleteArticle(id) {
     console.log(`Eliminar artículo con ID: ${id}`);
-    // Aquí iría la lógica para eliminar el artículo
   }
+
 </script>
 
 {#each usuarios as usuario (usuario.id)}
@@ -22,12 +22,13 @@ function deleteArticle(id) {
     </td>
   <!--  <td class="px-6 py-4 text-sm text-gray-900 border border-red-600">{usuario.reporter}</td>-->
     <td class="px-6 py-4 grid grid-cols-2 gap-4 border border-red-600">
-      <button 
-        on:click={() => deleteArticle(usuario.id)}
-        class="px-3 py-1 bg-red-500 text-white text-sm rounded hover:bg-red-600"
+      <a 
+        href={`/update/${usuario.id}`} 
+        class="inline-block px-3 py-1 bg-red-500 text-white text-sm rounded hover:bg-red-600 text-center"
       >
         Update
-      </button>
+      </a>
+
       <button 
         on:click={() => deleteArticle(usuario.id)}
         class="px-3 py-1 bg-red-500 text-white text-sm rounded hover:bg-red-600"

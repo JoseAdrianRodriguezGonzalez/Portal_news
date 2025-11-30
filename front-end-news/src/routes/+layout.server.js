@@ -4,9 +4,6 @@ export const load = async ({  fetch,cookies,url }) => {
     console.log("PATH ACTUAL:", actualPath);
     const session = cookies.get("session");
     console.log("COOKIE DESDE SSR:", session);
-    if (!session) {
-        throw redirect(302, '/');
-    }
     const res = await fetch('http://backend:3000/api/usuarios/', {
         method:"GET",
         headers:{
@@ -14,8 +11,8 @@ export const load = async ({  fetch,cookies,url }) => {
         }
     });
      if (!res.ok) {
-        // sesión inválida / expirada / token corrupto
-        throw redirect(302, '/');
+
+        return { loggedIn: false };
     }
     const data=await res.json();
     const rol=data.UsuarioActual?.rol;
@@ -30,11 +27,6 @@ export const load = async ({  fetch,cookies,url }) => {
     if(rol!=="admin" && rol!=="journalist"){
         throw redirect(302,'/');
     }
-    return {loggedIn:true};
-    //if(rol==="journalist") throw redirect(302,'/journalist');
-    //if(rol==="admin") throw redirect(302,'/admin');
-    //else throw redirect(302,'/');
-
-        
-     
+    return {loggedIn:true};        
+    
 };
