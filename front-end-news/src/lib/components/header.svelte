@@ -1,5 +1,5 @@
 <script>
-  import dailyBugle from '$lib/assets/Daily_Bugle.webp';
+  import dailyBugle from '$lib/assets/logodaily.svg';
   import { onMount, onDestroy } from 'svelte';
   let HourDate='';
   const updateDate=()=>{
@@ -55,7 +55,12 @@
     <div class="hidden md:flex basis-1/3"></div>
     <!-- Logo centrado -->
     <div class="basis-2/3 flex justify-end md:justify-center">
-      <img src={dailyBugle} alt="Daily Bugle" class="h-15 md:h-20"/>
+      <a 
+        href="/" 
+        class="inline-block transition-transform duration-200 hover:scale-105"
+      >
+        <img src={dailyBugle} alt="Daily Bugle" class="h-15 md:h-20" />
+      </a>
     </div>
 
     <!-- Botón Login -->
