@@ -45,7 +45,7 @@ class UsuarioController {
     //  GET / (Listar todos)
     async listar(req, res) {
         try {
-            console.log("Usuario que hace la petición:");
+
             const usuarios = await usuarioService.listarUsuarios();
             res.status(200).json({ success: true, usuarios,
             UsuarioActual: req.usuario

@@ -28,8 +28,13 @@ import dailyBugle from '$lib/assets/welcome.svg';
     
     <!-- Título centrado -->
     <div class="basis-1/3 flex justify-center">
-        <h1 class="font-['Merriweather'] text-5xl md:text-5xl font-bold text-gray-800 text-center mb-4 pt-4 md:pt-8">
-            News List
+        <h1 class="font-['Merriweather'] text-5xl md:text-4xl font-bold text-gray-800 text-center mb-4 pt-4 md:pt-8">
+            {#if isAdmin}
+              DashBoard de usuarios
+            {:else if isJournalist}
+              DashBoard de artículos
+            {/if}
+            
         </h1>
     </div>
     
@@ -55,7 +60,7 @@ import dailyBugle from '$lib/assets/welcome.svg';
       <div class="inline-flex items-center rounded-lg px-4 py-2 shadow-sm">
         <span class="text-sm font-medium text-gray-700">All</span>
         <span class="ml-2 px-3 py-1 bg-red-200 text-red-600 text-sm font-semibold rounded-full">
-          0
+          {isAdmin ? usuarios.length : '3'}
         </span>
       </div>
     </div>
@@ -65,14 +70,14 @@ import dailyBugle from '$lib/assets/welcome.svg';
       <table class="min-w-full bg-transparent border-2 border-red-600 rounded-lg shadow">
         <thead class="bg-transparent">
           <tr>
-            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 border border-red-600">Title</th>
-            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 border border-red-600">Date</th>
-            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 border border-red-600">Views</th>
-            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 border border-red-600">Status</th>
+            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 border border-red-600">{isAdmin ? 'Name' : 'Title'}</th>
+            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 border border-red-600">{isAdmin ? 'Register Date' : 'Date'}</th>
+            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 border border-red-600">{isAdmin ? 'email' : 'Views'}</th>
+            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 border border-red-600">{isAdmin ? 'Rol' : 'Status'}</th>
             
-            {#if isAdmin}
+        <!--    {#if isAdmin}
               <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 border border-red-600">Reporter</th>
-            {/if}
+            {/if}-->
             
             {#if isJournalist}
               <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 border border-red-600">Review</th>

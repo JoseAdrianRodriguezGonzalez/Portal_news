@@ -34,7 +34,6 @@ class UsuarioService {
                 { expiresIn: '2h' } // Expira en 2 horas
             );
             await client.setEx(`token:${usuario.id}`,2*60*60,token);
-            console.log("Token generado y almacenado en Redis:", token);
             // Devolvemos usuario Y token
             return { success: true, usuario: datosPublicos }; 
         } else {

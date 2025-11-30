@@ -6,9 +6,9 @@ class AuthMiddleware {
     static SECRET_KEY = 'secreto_super_seguro_portal_news';
 
     verificarSesion(req, res, next) {
-        console.log("Middleware verificarSesion ejecutado");
+ 
         const token = req.cookies?.session|| req.headers.cookie?.split('session=')[1];
-        console.log("Token recibido:", token);
+      
         if (!token) {
             return res.status(403).json({ 
                 success: false, 
