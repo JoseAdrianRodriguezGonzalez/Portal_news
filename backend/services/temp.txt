@@ -1,6 +1,0 @@
-Aquí vive la Lógica de Negocio.
-
-Ejemplo: Si vas a crear un usuario, el Service
- es quien revisa si la contraseña es segura, la encripta (hash) y luego llama al Model para guardar
-
- 
