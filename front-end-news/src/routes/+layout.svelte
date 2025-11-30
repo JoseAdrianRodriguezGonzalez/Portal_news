@@ -6,6 +6,7 @@
   import {page} from "$app/stores";
 
   $:showLayout=!$page.url.pathname.startsWith("/login");
+  $:showLayout=!$page.url.pathname.startsWith("/users");
 
 </script>
 
@@ -14,7 +15,7 @@
 	<link rel="icon" href={favicon} />
 </svelte:head>
 {#if showLayout}
-  <Header />
+  <Header />w
   <main>
     <slot />
   </main>
