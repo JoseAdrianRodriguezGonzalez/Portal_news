@@ -1,7 +1,0 @@
-{
-  "dependencies": {
-    "cassandra-driver": "^4.8.0",
-    "mongoose": "^8.20.0",
-    "redis": "^5.9.0"
-  }
-}
