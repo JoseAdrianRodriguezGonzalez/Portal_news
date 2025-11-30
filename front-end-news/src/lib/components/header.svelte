@@ -71,7 +71,7 @@
 
   </div>
   <div class="w-full border-t-2 border-red-600 mt-2"></div>
-  <!-- Navegación de secciones en inglés -->
+  <!-- Navegación de secciones -->
   <nav class=" px-4 mt-1 py-1">
     <ul class="flex flex-row gap-2 text-black font-medium justify-center text-[3.25vw] md:gap-8 md:text-lg">
       <li class="basis-1/6 flex flex-1 justify-center"><a href="/world">World</a></li>

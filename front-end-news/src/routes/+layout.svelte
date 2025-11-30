@@ -10,18 +10,18 @@
 
 </script>
 
-
 <svelte:head>
 	<link rel="icon" href={favicon} />
 </svelte:head>
+
 {#if showLayout}
-  <Header />w
-  <main>
-    <slot />
-  </main>
-  <Footer />
+  <div class="min-h-screen flex flex-col">
+    <Header />
+    <main class="grow">
+      <slot />
+    </main>
+    <Footer />
+  </div>
 {:else }
   <slot />
 {/if}
-
-<!--  {@render children()} -->

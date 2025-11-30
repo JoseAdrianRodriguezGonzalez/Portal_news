@@ -1,151 +1,88 @@
- <div class="table-container">
-            <div class="overflow-x-auto">
-                <table class="w-full text-sm text-left text-gray">
-                    <thead class="text-xs text-gray uppercase border-b border-gray/20">
-                        <tr>
-                            <th scope="col" class="px-6 py-4 font-medium">
-                                <div class="flex items-center">
-                                    <span>Title</span>
-                                    <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4"></path>
-                                    </svg>
-                                </div>
-                            </th>
-                            <th scope="col" class="px-6 py-4 font-medium">
-                                <div class="flex items-center">
-                                    <span>Date</span>
-                                    <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4"></path>
-                                    </svg>
-                                </div>
-                            </th>
-                            <th scope="col" class="px-6 py-4 font-medium">
-                                <div class="flex items-center">
-                                    <span>Views</span>
-                                    <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4"></path>
-                                    </svg>
-                                </div>
-                            </th>
-                            <th scope="col" class="px-6 py-4 font-medium">
-                                <div class="flex items-center">
-                                    <span>Status</span>
-                                    <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4"></path>
-                                    </svg>
-                                </div>
-                            </th>
-                            <th scope="col" class="px-6 py-4 font-medium">
-                                <span class="sr-only">Action</span>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-gray/20">
-                        <!-- Fila 1 -->
-                        <tr class="hover:bg-gray/10 transition-colors duration-200">
-                            <td class="px-6 py-4 font-medium grayspace-nowrap">
-                                Enter Title...
-                            </td>
-                            <td class="px-6 py-4">
-                                September 6, 2023
-                            </td>
-                            <td class="px-6 py-4">
-                                704.935.1017
-                            </td>
-                            <td class="px-6 py-4">
-                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-blue-800 border border-blue-400/50">
-                                    Review
-                                </span>
-                            </td>
-                            <td class="px-6 py-4 text-right">
-                                <button class="font-medium text-blue-800 hover:text-blue-600 transition-colors">Edit</button>
-                            </td>
-                        </tr>
-                        
-                        <!-- Fila 2 -->
-                        <tr class="hover:bg-gray/10 transition-colors duration-200">
-                            <td class="px-6 py-4 font-medium grayspace-nowrap">
-                                Affine McCoy
-                            </td>
-                            <td class="px-6 py-4">
-                                August 3, 2019
-                            </td>
-                            <td class="px-6 py-4">
-                                205.455.8100
-                            </td>
-                            <td class="px-6 py-4">
-                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-green-800 border border-green-400/50">
-                                    Active
-                                </span>
-                            </td>
-                            <td class="px-6 py-4 text-right">
-                                <button class="font-medium text-blue-800 hover:text-blue-600 transition-colors">Edit</button>
-                            </td>
-                        </tr>
-                        
-                        <!-- Fila 3 -->
-                        <tr class="hover:bg-gray/10 transition-colors duration-200">
-                            <td class="px-6 py-4 font-medium grayspace-nowrap">
-                                Cody Fisher
-                            </td>
-                            <td class="px-6 py-4">
-                                September 24, 2017
-                            </td>
-                            <td class="px-6 py-4">
-                                303.555.0705
-                            </td>
-                            <td class="px-6 py-4">
-                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-green-800 border border-green-400/50">
-                                    Active
-                                </span>
-                            </td>
-                            <td class="px-6 py-4 text-right">
-                                <button class="font-medium text-blue-800 hover:text-blue-600 transition-colors">Edit</button>
-                            </td>
-                        </tr>
+<script>
+import { page } from '$app/stores';
+import dailyBugle from '$lib/assets/welcome.svg';
 
-                        <!-- Fila 4 -->
-                        <tr class="hover:bg-gray/10 transition-colors duration-200">
-                            <td class="px-6 py-4 font-medium grayspace-nowrap">
-                                Jamie Larson
-                            </td>
-                            <td class="px-6 py-4">
-                                January 15, 2024
-                            </td>
-                            <td class="px-6 py-4">
-                                415.223.8945
-                            </td>
-                            <td class="px-6 py-4">
-                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-yellow-800 border border-yellow-400/50">
-                                    Pending
-                                </span>
-                            </td>
-                            <td class="px-6 py-4 text-right">
-                                <button class="font-medium text-blue-800 hover:text-blue-600 transition-colors">Edit</button>
-                            </td>
-                        </tr>
+  // Determinar qué página estamos mostrando
+  $: currentPath = $page.url.pathname;
+  $: isAdmin = currentPath.includes('/admin');
+  $: isJournalist = currentPath.includes('/journalist');
+  
+  // Mostrar tabla solo en páginas específicas
+  $: showTable = isAdmin || isJournalist;
+  
 
-                        <!-- Fila 5 -->
-                        <tr class="hover:bg-gray/10 transition-colors duration-200">
-                            <td class="px-6 py-4 font-medium grayspace-nowrap">
-                                Morgan Reeves
-                            </td>
-                            <td class="px-6 py-4">
-                                March 8, 2022
-                            </td>
-                            <td class="px-6 py-4">
-                                612.445.7789
-                            </td>
-                            <td class="px-6 py-4">
-                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-red-800 border border-red-400/50">
-                                    Inactive
-                                </span>
-                            </td>
-                            <td class="px-6 py-4 text-right">
-                                <button class="font-medium  text-blue-800 hover:text-blue-600 transition-colors">Edit</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+</script>
+
+<main class="min-h-screen">
+<!-- Header con logo arriba -->
+<div class="basis-2/3 flex justify-end md:justify-center">
+    <img src={dailyBugle} alt="Daily Bugle" class="h-15 md:h-20" />
+</div>
+
+<!-- Barra de título y búsqueda -->
+<div class="flex flex-col md:flex-row items-center border-b-2 border-red-600 md:p-2">
+    <!-- Columna izquierda vacía -->
+    <div class="hidden md:flex basis-1/3"></div>
+    
+    <!-- Título centrado -->
+    <div class="basis-1/3 flex justify-center">
+        <h1 class="font-['Merriweather'] text-5xl md:text-5xl font-bold text-gray-800 text-center mb-4 pt-4 md:pt-8">
+            News List
+        </h1>
+    </div>
+    
+    <!-- Búsqueda -->
+    <div class="flex basis-1/3 justify-center md:justify-end py-2 md:py-3 md:pr-10">
+        <div class="relative w-30 md:w-3/4">
+            <input
+                type="text"
+                placeholder="Search"
+                class="rounded-full px-8 py-1 border border-red-500 focus:border-pink-500 outline-none transition w-full text-sm"
+            />
+            <svg class="absolute left-2 top-2 h-4 w-4 text-red-500 pointer-events-none" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M12.9 14.32a8 8 0 111.414-1.414l5.384 5.384-1.414 1.414-5.384-5.384zM8 14a6 6 0 100-12 6 6 0 000 12z"/>
+            </svg>
         </div>
+    </div>
+</div>
+
+
+<div class="container mx-auto p-6">
+    <!-- Contador de artículos -->
+    <div class="mb-6">
+      <div class="inline-flex items-center rounded-lg px-4 py-2 shadow-sm">
+        <span class="text-sm font-medium text-gray-700">All</span>
+        <span class="ml-2 px-3 py-1 bg-red-200 text-red-600 text-sm font-semibold rounded-full">
+          0
+        </span>
+      </div>
+    </div>
+
+    <!-- Tabla -->
+    <div class="overflow-x-auto">
+      <table class="min-w-full bg-transparent border-2 border-red-600 rounded-lg shadow">
+        <thead class="bg-transparent">
+          <tr>
+            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 border border-red-600">Title</th>
+            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 border border-red-600">Date</th>
+            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 border border-red-600">Views</th>
+            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 border border-red-600">Status</th>
+            
+            {#if isAdmin}
+              <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 border border-red-600">Reporter</th>
+            {/if}
+            
+            {#if isJournalist}
+              <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 border border-red-600">Review</th>
+            {/if}
+            
+            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 border border-red-600">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <slot />
+        </tbody>
+      </table>
+    </div>
+  </div>
+</main>

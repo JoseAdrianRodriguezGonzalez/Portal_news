@@ -2,8 +2,8 @@
   import dailyBugle from '$lib/assets/logodailypng.svg';
 </script>
 
-<footer class="bg-red-600 flex flex-col">
-  <div class="flex items-center justify-between items-center px-2 md:px-4 py-3">
+<footer class="bg-red-600">
+  <div class="flex items-center justify-between px-2 md:px-4 py-3">
     <img src={dailyBugle} alt="Daily Bugle" class="h-7 md:h-16" />
 
     <nav class="px-4 py-3">
