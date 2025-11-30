@@ -8,13 +8,16 @@ services:
       - "27017:27017"
     volumes:
       - mongo_data:/data/db
+    networks:
+      - portal_network
 
   redis:
     image: redis:alpine
     container_name: portal_redis
     ports:
       - "6379:6379"
-
+    networks:
+      - portal_network
   cassandra:
     image: cassandra:latest
     container_name: portal_cassandra
@@ -29,6 +32,8 @@ services:
       interval: 15s
       timeout: 10s
       retries: 10
+    networks:
+      - portal_network
 
   #APLICACIONES
   backend:
@@ -40,7 +45,7 @@ services:
       - "3000:3000"
     volumes:
       - ./backend:/app
-      - /app/node_modules
+     # - /app/node_modules
     env_file:
       - .env
     command: npm run dev
@@ -51,12 +56,15 @@ services:
         condition: service_started
       cassandra:
         condition: service_healthy
-
+    networks:
+      - portal_network
   frontend:
     build:
       context: ./front-end-news
       dockerfile: Dockerfile.dev
     container_name: frontend_dev
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     ports: 
       - "5173:5173"
     volumes:
@@ -64,7 +72,11 @@ services:
       - /app/node_modules
     env_file:
       - .env
-
+    networks:
+      - portal_network
 volumes:
   mongo_data:
   cassandra_data:
+networks:
+  portal_network:
+    driver: bridge

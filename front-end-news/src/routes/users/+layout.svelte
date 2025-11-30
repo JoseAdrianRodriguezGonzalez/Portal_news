@@ -1,11 +1,13 @@
 <script>
 import { page } from '$app/stores';
 import dailyBugle from '$lib/assets/welcome.svg';
-
+  export let data;
+  const{ usuarios, UsuarioActual}=data;
+  console.log(UsuarioActual);
   // Determinar qué página estamos mostrando
   $: currentPath = $page.url.pathname;
-  $: isAdmin = currentPath.includes('/admin');
-  $: isJournalist = currentPath.includes('/journalist');
+  $: isAdmin = UsuarioActual?.rol === 'admin';
+  $: isJournalist = UsuarioActual?.rol === 'journalist';
   
   // Mostrar tabla solo en páginas específicas
   $: showTable = isAdmin || isJournalist;

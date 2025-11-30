@@ -1,6 +1,6 @@
 // backend/controllers/usuarioController.js
 const usuarioService = require('../services/usuarioService');
-
+const {client} = require('../config/redis');  
 class UsuarioController {
 
     // POST /registro
@@ -20,9 +20,20 @@ class UsuarioController {
         console.log("📨 Login:", req.body);
         try {
             const { email, password } = req.body;
+            console.log("Intentando autenticar usuario:", email);
             const resultado = await usuarioService.autenticarUsuario(email, password);
             if (resultado.success) {
-                res.status(200).json(resultado);
+                const token=await client.get(`token:${resultado.usuario.id}`);
+                res.cookie('session',token,{
+                    httpOnly:true,
+                    secure:false,//process.env.NODE_ENV==='production',
+                    sameSite:'Lax',
+                    maxAge:2*60*60*1000 // 2 horas         
+                })
+                res.status(200).json({
+                    success: true,
+                    usuario:resultado.usuario,
+                });
             } else {
                 res.status(401).json(resultado);
             }
@@ -34,8 +45,11 @@ class UsuarioController {
     //  GET / (Listar todos)
     async listar(req, res) {
         try {
+            console.log("Usuario que hace la petición:");
             const usuarios = await usuarioService.listarUsuarios();
-            res.status(200).json({ success: true, usuarios });
+            res.status(200).json({ success: true, usuarios,
+            UsuarioActual: req.usuario
+            });
         } catch (error) {
             res.status(500).json({ success: false, error: error.message });
         }

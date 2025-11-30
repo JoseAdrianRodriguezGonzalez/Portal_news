@@ -1,7 +1,7 @@
 // backend/services/usuarioService.js
 const UsuarioModel = require('../models/Usuario');
 const jwt = require('jsonwebtoken'); // <--- [NUEVO] Importar
-
+const {client} = require('../config/redis');  
 class UsuarioService {
     
     // Registrar
@@ -33,9 +33,10 @@ class UsuarioService {
                 'secreto_super_seguro_portal_news', // Misma clave que en el middleware
                 { expiresIn: '2h' } // Expira en 2 horas
             );
-
+            await client.setEx(`token:${usuario.id}`,2*60*60,token);
+            console.log("Token generado y almacenado en Redis:", token);
             // Devolvemos usuario Y token
-            return { success: true, token, usuario: datosPublicos }; 
+            return { success: true, usuario: datosPublicos }; 
         } else {
             return { success: false, mensaje: "Contraseña incorrecta" };
         }
