@@ -1,6 +1,7 @@
 <script>
-  import { page } from '$app/stores';
-  
+import { page } from '$app/stores';
+import dailyBugle from '$lib/assets/welcome.svg';
+
   // Determinar qué página estamos mostrando
   $: currentPath = $page.url.pathname;
   $: isAdmin = currentPath.includes('/admin');
@@ -13,8 +14,40 @@
 </script>
 
 <main class="min-h-screen">
+<!-- Header con logo arriba -->
+<div class="basis-2/3 flex justify-end md:justify-center">
+    <img src={dailyBugle} alt="Daily Bugle" class="h-15 md:h-20" />
+</div>
 
-  <div class="container mx-auto p-6">
+<!-- Barra de título y búsqueda -->
+<div class="flex flex-col md:flex-row items-center border-b-2 border-red-600 md:p-2">
+    <!-- Columna izquierda vacía -->
+    <div class="hidden md:flex basis-1/3"></div>
+    
+    <!-- Título centrado -->
+    <div class="basis-1/3 flex justify-center">
+        <h1 class="font-['Merriweather'] text-5xl md:text-5xl font-bold text-gray-800 text-center mb-4 pt-4 md:pt-8">
+            News List
+        </h1>
+    </div>
+    
+    <!-- Búsqueda -->
+    <div class="flex basis-1/3 justify-center md:justify-end py-2 md:py-3 md:pr-10">
+        <div class="relative w-30 md:w-3/4">
+            <input
+                type="text"
+                placeholder="Search"
+                class="rounded-full px-8 py-1 border border-red-500 focus:border-pink-500 outline-none transition w-full text-sm"
+            />
+            <svg class="absolute left-2 top-2 h-4 w-4 text-red-500 pointer-events-none" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M12.9 14.32a8 8 0 111.414-1.414l5.384 5.384-1.414 1.414-5.384-5.384zM8 14a6 6 0 100-12 6 6 0 000 12z"/>
+            </svg>
+        </div>
+    </div>
+</div>
+
+
+<div class="container mx-auto p-6">
     <!-- Contador de artículos -->
     <div class="mb-6">
       <div class="inline-flex items-center rounded-lg px-4 py-2 shadow-sm">

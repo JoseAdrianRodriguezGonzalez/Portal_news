@@ -1,4 +1,5 @@
 <script>
+
   // Datos temporales de prueba (después vendrán de la BD)
   let articles = [
     { id: 1, title: "Mi artículo 1", date: "2024-11-22", views: 89, status: "Pending", review: "Pending" },
