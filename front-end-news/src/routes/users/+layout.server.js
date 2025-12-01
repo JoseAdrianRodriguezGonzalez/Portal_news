@@ -1,9 +1,7 @@
 import { redirect } from "@sveltejs/kit";
 export const load = async ({  fetch,cookies,url }) => {
     const actualPath= url.pathname;
-    console.log("PATH ACTUAL:", actualPath);
     const session = cookies.get("session");
-    console.log("COOKIE DESDE SSR:", session);
     const res = await fetch('http://backend:3000/api/usuarios/', {
         method:"GET",
         headers:{

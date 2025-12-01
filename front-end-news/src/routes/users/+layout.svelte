@@ -1,24 +1,37 @@
 <script>
 import { page } from '$app/stores';
 import dailyBugle from '$lib/assets/welcome.svg';
-  export let data;
-  const{ usuarios, UsuarioActual}=data;
-  console.log(UsuarioActual);
-  // Determinar qué página estamos mostrando
-  $: currentPath = $page.url.pathname;
-  $: isAdmin = UsuarioActual?.rol === 'admin';
-  $: isJournalist = UsuarioActual?.rol === 'journalist';
-  
-  // Mostrar tabla solo en páginas específicas
-  $: showTable = isAdmin || isJournalist;
-  
+import logout from '$lib/assets/logout.png';
+
+export let data;
+const{ usuarios, UsuarioActual}=data;
+console.log(UsuarioActual);
+// Determinar qué página estamos mostrando
+$: currentPath = $page.url.pathname;
+$: isAdmin = UsuarioActual?.rol === 'admin';
+$: isJournalist = UsuarioActual?.rol === 'journalist';
+
+// Mostrar tabla solo en páginas específicas
+$: showTable = isAdmin || isJournalist;
+
+let toggled = false;
+
+function toggle() {
+  toggled = !toggled;
+}
+
 
 </script>
 
 <main class="min-h-screen">
-<!-- Header con logo arriba -->
-<div class="basis-2/3 flex justify-end md:justify-center">
-    <img src={dailyBugle} alt="Daily Bugle" class="h-15 md:h-20" />
+<!-- Header con logo arriba y logour al lado derec  -->
+<!-- Header con logo e icono de logout a la derecha -->
+<div class="flex justify-end md:justify-center items-center gap-4">
+  <img src={dailyBugle} alt="Daily Bugle" class="h-10 md:h-25" />
+  <button on:click={toggle} class="flex items-center justify-center">
+    <img src={logout} alt="Logout" class="h-6 md:h-14" />
+  </button>
+
 </div>
 
 <!-- Barra de título y búsqueda -->
@@ -28,9 +41,15 @@ import dailyBugle from '$lib/assets/welcome.svg';
     
     <!-- Título centrado -->
     <div class="basis-1/3 flex justify-center">
-        <h1 class="font-['Merriweather'] text-5xl md:text-5xl font-bold text-gray-800 text-center mb-4 pt-4 md:pt-8">
-            News List
+        <h1 class="font-['Merriweather'] text-5xl md:text-4xl font-bold text-gray-800 text-center mb-4 pt-4 md:pt-8">
+            {#if isAdmin}
+              DashBoard de usuarios
+            {:else if isJournalist}
+              DashBoard de artículos
+            {/if}
+            
         </h1>
+        
     </div>
     
     <!-- Búsqueda -->
@@ -55,7 +74,7 @@ import dailyBugle from '$lib/assets/welcome.svg';
       <div class="inline-flex items-center rounded-lg px-4 py-2 shadow-sm">
         <span class="text-sm font-medium text-gray-700">All</span>
         <span class="ml-2 px-3 py-1 bg-red-200 text-red-600 text-sm font-semibold rounded-full">
-          0
+          {isAdmin ? usuarios.length : '3'}
         </span>
       </div>
     </div>
@@ -65,14 +84,14 @@ import dailyBugle from '$lib/assets/welcome.svg';
       <table class="min-w-full bg-transparent border-2 border-red-600 rounded-lg shadow">
         <thead class="bg-transparent">
           <tr>
-            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 border border-red-600">Title</th>
-            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 border border-red-600">Date</th>
-            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 border border-red-600">Views</th>
-            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 border border-red-600">Status</th>
+            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 border border-red-600">{isAdmin ? 'Name' : 'Title'}</th>
+            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 border border-red-600">{isAdmin ? 'Register Date' : 'Date'}</th>
+            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 border border-red-600">{isAdmin ? 'email' : 'Views'}</th>
+            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 border border-red-600">{isAdmin ? 'Rol' : 'Status'}</th>
             
-            {#if isAdmin}
+        <!--    {#if isAdmin}
               <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 border border-red-600">Reporter</th>
-            {/if}
+            {/if}-->
             
             {#if isJournalist}
               <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 border border-red-600">Review</th>
