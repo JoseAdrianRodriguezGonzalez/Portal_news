@@ -52,16 +52,21 @@ class UsuarioService {
         if (!usuario) throw new Error("Usuario no encontrado");
         
         const { password, ...datosPublicos } = usuario; // Ocultamos password
-        return datosPublicos;
+        return usuario;
     }
 
     //  Actualizar usuario
     async editarUsuario(id, datos) {
         // Validamos si existe antes de editar
+        const claves=Object.keys(datos);
+        if(claves.length===0){
+            throw new Error("No hay campos apra acutalziar");
+        }
+
         const existe = await UsuarioModel.buscarPorId(id);
         if (!existe) throw new Error("No se puede editar: Usuario no existe");
 
-        return await UsuarioModel.actualizar(id, datos.nombre, datos.rol);
+        return await UsuarioModel.actualizar(id, datos);
     }
 
     //  Eliminar usuario

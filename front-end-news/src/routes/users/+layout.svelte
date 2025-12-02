@@ -2,25 +2,31 @@
 import { page } from '$app/stores';
 import dailyBugle from '$lib/assets/welcome.svg';
 import logout from '$lib/assets/logout.png';
-
+import {goto} from "$app/navigation";
 export let data;
 const{ usuarios, UsuarioActual}=data;
-console.log(UsuarioActual);
 // Determinar qué página estamos mostrando
 $: currentPath = $page.url.pathname;
 $: isAdmin = UsuarioActual?.rol === 'admin';
 $: isJournalist = UsuarioActual?.rol === 'journalist';
+$: showTableLayout = ![`/users/${UsuarioActual?.rol}/update`,`/users/${UsuarioActual?.rol}/registro`].some(
+  path=>$page.url.pathname.startsWith(path) 
+);
+console.log("Current Path:", $page.url.pathname, "showTable:", showTableLayout);
+
 
 // Mostrar tabla solo en páginas específicas
-$: showTable = isAdmin || isJournalist;
+
 
 let toggled = false;
 
-function toggle() {
-  toggled = !toggled;
+async function toggle() {
+  await fetch(`http://localhost:3000/api/usuarios/logout`,{
+    method:"POST",
+    credentials:"include"
+  })
+  goto("/");
 }
-
-
 </script>
 
 <main class="min-h-screen">
@@ -67,18 +73,25 @@ function toggle() {
     </div>
 </div>
 
+{#if showTableLayout}
+
 
 <div class="container mx-auto p-6">
-    <!-- Contador de artículos -->
-    <div class="mb-6">
-      <div class="inline-flex items-center rounded-lg px-4 py-2 shadow-sm">
-        <span class="text-sm font-medium text-gray-700">All</span>
-        <span class="ml-2 px-3 py-1 bg-red-200 text-red-600 text-sm font-semibold rounded-full">
-          {isAdmin ? usuarios.length : '3'}
-        </span>
-      </div>
+  <!-- Contador de artículos -->
+  <div class="mb-6 flex justify-between">
+    <div class="inline-flex items-center rounded-lg px-4 py-2 shadow-sm">
+      <span class="text-sm font-medium text-gray-700">All</span>
+      <span class="ml-2 px-3 py-1 bg-red-200 text-red-600 text-sm font-semibold rounded-full">
+        {isAdmin ? usuarios.length : '3'}
+      </span>
     </div>
-
+     <div class="inline-flex items-center rounded-lg px-4 py-2 shadow-sm">
+      <a href={isAdmin?"admin/registro":"journalist/crear"} data-sveltekit-preload-data="off" class="ml-2 px-3 py-1 bg-green-200 text-green-600 text-sm font-semibold rounded-full">
+        {isAdmin ? "Crear usuario" : 'Crear articulo'}
+      </a>
+    </div>
+  </div>
+  
     <!-- Tabla -->
     <div class="overflow-x-auto">
       <table class="min-w-full bg-transparent border-2 border-red-600 rounded-lg shadow">
@@ -89,21 +102,26 @@ function toggle() {
             <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 border border-red-600">{isAdmin ? 'email' : 'Views'}</th>
             <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 border border-red-600">{isAdmin ? 'Rol' : 'Status'}</th>
             
-        <!--    {#if isAdmin}
-              <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 border border-red-600">Reporter</th>
+            <!--    {#if isAdmin}
+            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 border border-red-600">Reporter</th>
             {/if}-->
             
             {#if isJournalist}
-              <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 border border-red-600">Review</th>
+            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 border border-red-600">Review</th>
             {/if}
             
             <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 border border-red-600">Actions</th>
           </tr>
         </thead>
-        <tbody>
-          <slot />
-        </tbody>
-      </table>
+          <tbody>
+            <slot />
+          </tbody>
+        </table>
+      </div>
     </div>
-  </div>
-</main>
+    {/if}
+    { #if !showTableLayout }
+    <slot />
+      
+    {/if}
+  </main>

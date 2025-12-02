@@ -70,8 +70,12 @@ class UsuarioController {
     async actualizar(req, res) {
         try {
             const { id } = req.params;
-            const { nombre, rol } = req.body;
-            const resultado = await usuarioService.editarUsuario(id, { nombre, rol });
+            const campos={};
+            if (req.body.nombre) campos.nombre=req.body.nombre;
+            if (req.body.rol) campos.rol=req.body.rol;
+            if (req.body.email) campos.email=req.body.email;
+            if (req.body.password) campos.password=req.body.password;
+            const resultado = await usuarioService.editarUsuario(id, campos);
             res.status(200).json({ success: true, resultado });
         } catch (error) {
             res.status(400).json({ success: false, error: error.message });
@@ -86,6 +90,23 @@ class UsuarioController {
             res.status(200).json({ success: true, resultado });
         } catch (error) {
             res.status(400).json({ success: false, error: error.message });
+        }
+    }
+
+    async logout(req,res){
+        try{
+            const token=req.cookies.session;
+            if(token) await client.del(token);
+            res.clearCookie("session",{
+                httpOnly:true,
+                secure: false,
+                sameSite:"lax",
+                path:'/'
+            });
+            res.json({ok:true,message:"Logged out"});
+
+        }catch(err){
+            res.status(500).json({ok:false,error:"Logout failed"});
         }
     }
 }

@@ -19,6 +19,7 @@ class AuthMiddleware {
         try {
             const decoded = jwt.verify(token, AuthMiddleware.SECRET_KEY);
             req.usuario = decoded;
+            console.log("Si se valido ",req.usuario);
             next();
         } catch (error) {
             return res.status(401).json({ 
@@ -30,6 +31,7 @@ class AuthMiddleware {
 
     esAdmin(req, res, next) {
         if (req.usuario?.rol === "admin") {
+            console.log("ES el jEFE. usted si")
             return next();
         }
 

@@ -1,11 +1,25 @@
 <script>
+  import {goto,invalidateAll} from "$app/navigation";
   // Datos temporales de prueba (después vendrán de la BD)
 export let data;
-const {usuarios,UsuarioActual} = data;
-console.log("UsuarioActual en admin page.svelte:", UsuarioActual);
-console.log("Usuarios en admin page.svelte:", usuarios);
-function deleteArticle(id) {
-    console.log(`Eliminar artículo con ID: ${id}`);
+let usuarios=[...data.usuarios];
+const UsuarioActual=data.UsuarioActual;
+
+
+async function deleteArticle(id) {
+    console.log(`Eliminar usuario con ID: ${id}`);
+    const res=await fetch(`http://localhost:3000/api/usuarios/${id}`,{
+      method:"DELETE",
+      credentials:"include"
+    })
+    if(res.ok){
+      console.log("si lo hizo la eliminacion ");
+      usuarios=usuarios.filter(u=>u.id!=id);
+      return ;
+    }else{
+         const errorData = await res.json().catch(() => ({ error: "No JSON" }));
+    console.log("Error al eliminar:", errorData);
+    }
   }
 
 </script>
@@ -23,13 +37,14 @@ function deleteArticle(id) {
   <!--  <td class="px-6 py-4 text-sm text-gray-900 border border-red-600">{usuario.reporter}</td>-->
     <td class="px-6 py-4 grid grid-cols-2 gap-4 border border-red-600">
       <a 
-        href={`/update/${usuario.id}`} 
+        href={`admin/update/${usuario.id}`} 
         class="inline-block px-3 py-1 bg-red-500 text-white text-sm rounded hover:bg-red-600 text-center"
       >
         Update
       </a>
 
       <button 
+      type="button"
         on:click={() => deleteArticle(usuario.id)}
         class="px-3 py-1 bg-red-500 text-white text-sm rounded hover:bg-red-600"
       >

@@ -6,7 +6,7 @@ class UsuarioModel {
 
     // CREATE 
     static async crear(nombre, email, password, rol) {
-        const rolesPermitidos = ['admin', 'reportero'];
+        const rolesPermitidos = ['admin', 'journalist'];
         if (!rolesPermitidos.includes(rol)) throw new Error("Rol inválido");
 
         const id = uuidv4();
@@ -43,14 +43,19 @@ class UsuarioModel {
     }
 
     // UPDATE 
-    static async actualizar(id, nombre, rol) {
+    static async actualizar(id, datos) {
+        const campos =Object.keys(datos);
+        if(campos.length===0) throw new Error("No hay campos apra actualizar");
+        const setClause= campos.map(campo=> `${campo}=?`).join(', ');
+        const valores=campos.map(campo =>datos[campo]);
         const query = `
             UPDATE usuarios 
-            SET nombre = ?, rol = ? 
+            SET ${setClause}
             WHERE id = ?
         `;
-        await client.execute(query, [nombre, rol, id], { prepare: true });
-        return { id, nombre, rol, mensaje: "Usuario actualizado" };
+        valores.push(id);
+        await client.execute(query, valores, { prepare: true });
+        return { id, mensaje: "Usuario actualizado" };
     }
 
     // DELETE 
