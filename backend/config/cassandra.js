@@ -4,7 +4,7 @@ const path = require('path');
 const fs = require('fs');
 
 // Ajusta la ruta según dónde esté tu ZIP en el proyecto
-const bundlePath = path.join(__dirname, 'secure-connect-datacenter1.zip');
+const bundlePath = path.join(__dirname, '../secure-connect-datacenter1.zip');
 
 // Verificar si el bundle existe
 if (!fs.existsSync(bundlePath)) {
