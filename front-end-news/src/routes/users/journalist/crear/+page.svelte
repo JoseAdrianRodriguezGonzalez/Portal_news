@@ -22,14 +22,22 @@ $: console.log("H1 extraído:", extraerTitulo(json));
         }
         return "";
     }
-    function extraerResumen(json){
+    function extraerResumen(json,maxLength=200){
         if(!json?.content) return "";
-        for (const bloque of json.content){
-            if(bloque.type ==="paragraph" && bloque.content){
-                return bloque.content.map(n=>n.text || "").join(" ").trim();
-            }
+        const primerParrafo = json.content.find(
+        bloque => bloque.type === "paragraph" && bloque.content
+        );
+
+        if (!primerParrafo) return "";
+        let resumen = primerParrafo.content.map(n => n.text || "").join(" ").trim();
+        console.log(resumen);
+        console.log(resumen.length)
+        if (resumen.length > maxLength) {
+            resumen = resumen.slice(0, maxLength-3).trim();
+            resumen += "...";
         }
-        return "";
+
+        return resumen;
     }
     async function saveNews(){
         const contenido =editor?.getJSON() || json;

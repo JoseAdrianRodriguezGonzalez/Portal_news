@@ -27,7 +27,7 @@ const NoticiaSchema = new mongoose.Schema({
     },
     categoria: {
         type: String,
-        enum: ['Mundo', 'Política', 'Deportes', 'Tecnología', 'Entretenimiento', 'Spiderman'],
+        enum: ['Mundo', 'Política', 'Deportes', 'Tecnología', 'Entretenimiento', 'Spiderman','Ciencia'],
         required: true
     },
     autor_id: {

@@ -12,7 +12,7 @@
     export let content = null;
     export let editor = null;
     export let onUpdate = () => {};
-
+    export let readonly=false;
     let editorElement;
 
     const EMPTY_DOC = { type: "doc", content: [] };
@@ -21,6 +21,7 @@
         editor = new Editor({
             element: editorElement,
             content: content ?? EMPTY_DOC,
+            editable:!readonly,
             extensions: [
                 StarterKit,
                 Placeholder.configure({
