@@ -2,7 +2,7 @@ const cassandra = require('cassandra-driver');
 const path = require('path');
 
 // Ruta al bundle
-const bundlePath = path.join(__dirname, 'config/secure-connect.zip');
+const bundlePath = path.join(__dirname, '/secure-connect.zip');
 
 const client = new cassandra.Client({
   cloud: { secureConnectBundle: bundlePath },
