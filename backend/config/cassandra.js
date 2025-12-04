@@ -18,7 +18,12 @@ if (!fs.existsSync(bundlePath)) {
 // Crear cliente Cassandra usando bundle de Astra
 const client = new Client({
   cloud: { secureConnectBundle: bundlePath },
-  keyspace: 'portal_news' // tu keyspace
+  credentials:{
+    username:"annQSuHfDfoAkdNtrBqGckJn",
+    password:"7bmZ7f49stRLTBKplh7a8EZpO2jlkf8ILnvnluSvCcQ2hTZzAmuiWgPiEufC0XtyqyFzfuPoeqj4x,_CCKgp,DqnH9XYZI.gI9b4pvNRF_051OwD3R8PJ5cni2o5Igb-",
+  },
+  keyspace: 'portal_news', // tu keyspace
+
 });
 
 // Función para conectar
