@@ -21,7 +21,27 @@ export const load = async ({  fetch,cookies,url }) => {
     if(rol!=="admin" && rol!=="journalist"){
         throw redirect(302,'/');
     }
-    return data;
+    let noticias= [];
+    let usuarios=[];
+      // Si es admin → backend ya devolvió todos los usuarios
+    if (rol === "admin") {
+        usuarios = data.usuarios || [];
+    }
+    if(rol==="journalist"){
+        const resNoticias=await fetch('http://backend:3000/api/noticias',{
+            method:"GET",
+            headers:{
+                cookie:`session=${session}`
+          }
+        });
+        const datanoticias=await resNoticias.json();
+        noticias=datanoticias.noticias || [];
+    }
+    return {
+        usuario:data.UsuarioActual,
+        usuarios,
+        noticias
+    }
     //if(rol==="journalist") throw redirect(302,'/journalist');
     //if(rol==="admin") throw redirect(302,'/admin');
     //else throw redirect(302,'/');

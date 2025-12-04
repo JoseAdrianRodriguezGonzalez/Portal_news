@@ -3,7 +3,7 @@
   // Datos temporales de prueba (después vendrán de la BD)
 export let data;
 let usuarios=[...data.usuarios];
-const UsuarioActual=data.UsuarioActual;
+const UsuarioActual=data.usuario;
 
 
 async function deleteArticle(id) {

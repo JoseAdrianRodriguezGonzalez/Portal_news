@@ -7,8 +7,13 @@ class AuthMiddleware {
 
     verificarSesion(req, res, next) {
  
-        const token = req.cookies?.session|| req.headers.cookie?.split('session=')[1];
-      
+        const token = req.cookies?.session;
+        if (!token && req.headers.cookie) {
+            const cookies = Object.fromEntries(
+                req.headers.cookie.split("; ").map(c => c.split("="))
+            );
+            token = cookies.session;
+        }
         if (!token) {
             return res.status(403).json({ 
                 success: false, 
@@ -19,7 +24,8 @@ class AuthMiddleware {
         try {
             const decoded = jwt.verify(token, AuthMiddleware.SECRET_KEY);
             req.usuario = decoded;
-            console.log("Si se valido ",req.usuario);
+            console.log("Si se valido el periodista",req.usuario);
+            console.log("REQ BODY ENTRANTE:", req.body);
             next();
         } catch (error) {
             return res.status(401).json({ 

@@ -4,12 +4,12 @@ import dailyBugle from '$lib/assets/welcome.svg';
 import logout from '$lib/assets/logout.png';
 import {goto} from "$app/navigation";
 export let data;
-const{ usuarios, UsuarioActual}=data;
+const{ usuarios, usuario,noticias}=data;
 // Determinar qué página estamos mostrando
 $: currentPath = $page.url.pathname;
-$: isAdmin = UsuarioActual?.rol === 'admin';
-$: isJournalist = UsuarioActual?.rol === 'journalist';
-$: showTableLayout = ![`/users/${UsuarioActual?.rol}/update`,`/users/${UsuarioActual?.rol}/registro`].some(
+$: isAdmin = usuario?.rol === 'admin';
+$: isJournalist = usuario?.rol === 'journalist';
+$: showTableLayout = ![`/users/${usuario?.rol}/update`,`/users/${usuario?.rol}/registro`,`/users/${usuario?.rol}/crear`,`/users/${usuario?.rol}/editar`].some(
   path=>$page.url.pathname.startsWith(path) 
 );
 console.log("Current Path:", $page.url.pathname, "showTable:", showTableLayout);
@@ -82,7 +82,7 @@ async function toggle() {
     <div class="inline-flex items-center rounded-lg px-4 py-2 shadow-sm">
       <span class="text-sm font-medium text-gray-700">All</span>
       <span class="ml-2 px-3 py-1 bg-red-200 text-red-600 text-sm font-semibold rounded-full">
-        {isAdmin ? usuarios.length : '3'}
+        {isAdmin ? usuarios.length : noticias.length}
       </span>
     </div>
      <div class="inline-flex items-center rounded-lg px-4 py-2 shadow-sm">
@@ -100,14 +100,14 @@ async function toggle() {
             <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 border border-red-600">{isAdmin ? 'Name' : 'Title'}</th>
             <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 border border-red-600">{isAdmin ? 'Register Date' : 'Date'}</th>
             <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 border border-red-600">{isAdmin ? 'email' : 'Views'}</th>
-            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 border border-red-600">{isAdmin ? 'Rol' : 'Status'}</th>
+            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 border border-red-600">{isAdmin ? 'Rol' : 'Categoría'}</th>
             
             <!--    {#if isAdmin}
             <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 border border-red-600">Reporter</th>
             {/if}-->
             
-            {#if isJournalist}
-            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 border border-red-600">Review</th>
+            {#if !isAdmin}
+            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 border border-red-600">Autor</th>
             {/if}
             
             <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 border border-red-600">Actions</th>
