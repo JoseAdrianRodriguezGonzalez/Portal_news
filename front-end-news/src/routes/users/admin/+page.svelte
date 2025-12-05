@@ -1,28 +1,25 @@
-<script>
-  import {goto,invalidateAll} from "$app/navigation";
-  // Datos temporales de prueba (después vendrán de la BD)
-export let data;
-let usuarios=[...data.usuarios];
-const UsuarioActual=data.usuario;
+<<script>
+  export let usuarios = [];   // ⬅⬅⬅ IMPORTANTE
+  import { goto } from "$app/navigation";
 
-
-async function deleteArticle(id) {
+  async function deleteArticle(id) {
     console.log(`Eliminar usuario con ID: ${id}`);
-    const res=await fetch(`https://portalnews-production.up.railway.app/api/usuarios/${id}`,{
-      method:"DELETE",
-      credentials:"include"
-    })
-    if(res.ok){
-      console.log("si lo hizo la eliminacion ");
-      usuarios=usuarios.filter(u=>u.id!=id);
-      return ;
-    }else{
-         const errorData = await res.json().catch(() => ({ error: "No JSON" }));
-    console.log("Error al eliminar:", errorData);
+
+    const res = await fetch(`https://portalnews-production.up.railway.app/api/usuarios/${id}`, {
+      method: "DELETE",
+      credentials: "include"
+    });
+
+    if (res.ok) {
+      console.log("Usuario eliminado");
+      usuarios = usuarios.filter(u => u.id !== id);  // actualizar tabla local
+    } else {
+      const errorData = await res.json().catch(() => ({ error: "No JSON" }));
+      console.log("Error al eliminar:", errorData);
     }
   }
+</>
 
-</script>
 
 {#each usuarios ?? [] as usuario (usuario.id)}
   <tr class="hover:bg-gray-50">

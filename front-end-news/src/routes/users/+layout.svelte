@@ -145,7 +145,7 @@ async function toggle() {
             </tr>
           </thead>
           <tbody>
-            <slot />
+            <slot usuarios={usuarios}/>
           </tbody>
         </table>
       </div>
