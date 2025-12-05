@@ -5,8 +5,6 @@ import dailyBugle from '$lib/assets/welcome.svg';
 import logoutIcon from '$lib/assets/logout.png';
 import { goto } from "$app/navigation";
 export const ssr=false;
-export let data; // datos públicos si los hay
-
 let usuario = null;
 let usuarios = [];
 let noticias = [];
@@ -44,8 +42,8 @@ onMount(async () => {
     return;
   }
 
-  const data = await res.json();
-  usuario = data.UsuarioActual;
+  const userData = await res.json();
+  usuario = userData.UsuarioActual;
 
   // Redirección según rol
   if (usuario.rol === "admin" && !currentPath.startsWith("/users/admin")) {
@@ -56,9 +54,14 @@ onMount(async () => {
 
   // Cargar datos según rol
   if (usuario.rol === "admin") {
-    usuarios = data.usuarios || [];
+    const resUsuarios = await fetch("https://portalnews-production.up.railway.app/api/usuarios/", {
+        headers: { "Authorization": `Bearer ${token}` }
+    });
+
+    const dataUsuarios = await resUsuarios.json();
+    usuarios = dataUsuarios.usuarios || [];
   } else if (usuario.rol === "journalist") {
-    const noticiasRes = await fetch("https://portalnews-production.up.railway.app/api/noticias", {
+    const noticiasRes = await fetch("https://portalnews-production.up.railway.app/api/noticias/", {
       headers: { "Authorization": `Bearer ${token}` }
     });
     const noticiasData = await noticiasRes.json();
