@@ -27,7 +27,7 @@ class UsuarioController {
                 res.cookie('session',token,{
                     httpOnly:true,
                     secure:true,//process.env.NODE_ENV==='production',
-                    sameSite:'Lax',
+                    sameSite:'None',
                     maxAge:2*60*60*1000 // 2 horas         
                 })
                 res.status(200).json({
