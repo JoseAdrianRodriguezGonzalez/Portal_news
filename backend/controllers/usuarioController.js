@@ -26,8 +26,8 @@ class UsuarioController {
                 const token=await client.get(`token:${resultado.usuario.id}`);
                 res.cookie('session',token,{
                     httpOnly:true,
-                    secure:false,//process.env.NODE_ENV==='production',
-                    sameSite:'Lax',
+                    secure:true,//process.env.NODE_ENV==='production',
+                    sameSite:'None',
                     maxAge:2*60*60*1000 // 2 horas         
                 })
                 res.status(200).json({

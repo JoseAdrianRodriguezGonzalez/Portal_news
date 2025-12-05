@@ -2,7 +2,7 @@ import { redirect } from "@sveltejs/kit";
 export const load = async ({  fetch,cookies,url }) => {
     const actualPath= url.pathname;
     const session = cookies.get("session");
-    const res = await fetch('http://backend:3000/api/usuarios/', {
+    const res = await fetch('https://portalnews-production.up.railway.app:3000/api/usuarios/', {
         method:"GET",
         headers:{
             cookie:`session=${session}`
@@ -28,7 +28,7 @@ export const load = async ({  fetch,cookies,url }) => {
         usuarios = data.usuarios || [];
     }
     if(rol==="journalist"){
-        const resNoticias=await fetch('http://backend:3000/api/noticias',{
+        const resNoticias=await fetch('https://portalnews-production.up.railway.app:3000/api/noticias',{
             method:"GET",
             headers:{
                 cookie:`session=${session}`

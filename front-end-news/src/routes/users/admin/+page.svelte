@@ -8,7 +8,7 @@ const UsuarioActual=data.usuario;
 
 async function deleteArticle(id) {
     console.log(`Eliminar usuario con ID: ${id}`);
-    const res=await fetch(`http://localhost:3000/api/usuarios/${id}`,{
+    const res=await fetch(`https://portalnews-production.up.railway.app:3000/api/usuarios/${id}`,{
       method:"DELETE",
       credentials:"include"
     })

@@ -15,7 +15,7 @@
 
 async function deleteArticle(id) {
     console.log(`Eliminar articulo con ID: ${id}`);
-    const res=await fetch(`http://localhost:3000/api/noticias/${id}`,{
+    const res=await fetch(`https://portalnews-production.up.railway.app:3000/api/noticias/${id}`,{
       method:"DELETE",
       credentials:"include"
     })

@@ -4,7 +4,7 @@ export async function load({ params, fetch ,cookies}) {
     const session = cookies.get("session");
     //saber si puedo acceder a este recurso
     console.log(slug);
-    const res = await fetch(`http://backend:3000/api/noticias/${slug}`, {
+    const res = await fetch(`http://portalnews-production.up.railway.app:3000/api/noticias/${slug}`, {
         method:"GET",
         headers:{
             cookie:`session=${session}`
