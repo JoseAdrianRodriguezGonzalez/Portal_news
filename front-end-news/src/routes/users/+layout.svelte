@@ -4,7 +4,7 @@ import { page } from '$app/stores';
 import dailyBugle from '$lib/assets/welcome.svg';
 import logoutIcon from '$lib/assets/logout.png';
 import { goto } from "$app/navigation";
-
+export const ssr=false;
 export let data; // datos públicos si los hay
 
 let usuario = null;

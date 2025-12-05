@@ -24,7 +24,7 @@ async function deleteArticle(id) {
 
 </script>
 
-{#each usuarios as usuario (usuario.id)}
+{#each usuarios ?? [] as usuario (usuario.id)}
   <tr class="hover:bg-gray-50">
     <td class="px-6 py-4 text-sm text-gray-900 border border-red-600">{usuario.nombre}</td>
     <td class="px-6 py-4 text-sm text-gray-600 border border-red-600">{usuario.fecha_registro}</td>
