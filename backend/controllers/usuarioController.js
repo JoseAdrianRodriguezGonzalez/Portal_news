@@ -24,12 +24,7 @@ class UsuarioController {
             const resultado = await usuarioService.autenticarUsuario(email, password);
             if (resultado.success) {
                 const token=await client.get(`token:${resultado.usuario.id}`);
-                res.cookie('session',token,{
-                    httpOnly:true,
-                    secure:true,//process.env.NODE_ENV==='production',
-                    sameSite:'None',
-                    maxAge:2*60*60*1000 // 2 horas         
-                })
+                res.setHeader('Set-Cookie', `session=${token}; HttpOnly; Secure; SameSite=None; Path=/; Partitioned`);
                 console.log("DIme porque ")
                 res.status(200).json({
                     success: true,
