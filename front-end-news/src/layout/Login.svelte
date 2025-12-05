@@ -8,13 +8,13 @@ const handleLogin=async(event) => {
   const payload={email,password}; //Arrelgo con el coreoy  la contra
   console.log("Payload:",payload);
   try{
-    const response=await fetch("https://portalnews-production.up.railway.app/api/usuarios/login",{
-      method:"POST",
-      credentials:"include",
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify(payload),
-    });
-    const data=await response.json();
+    onst response = await fetch("/api/usuarios/login", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify(payload)
+});
+const data = await response.json();
+
     console.log("data",data);
    if(data.success){
 
