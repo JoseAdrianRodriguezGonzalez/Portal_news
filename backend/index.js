@@ -8,7 +8,7 @@ const PORT = 3000;//Definición de puerto de conexión
 const initDB=require('./utils/initDB.js');//Función de inicialización de base de datos 
 //Middlewares globales
 app.use(cors({
-  origin: 'https://portal-news-n5yd-6f1d25608-kerpadorgmailcoms-projects.vercel.app', // frontend exacto
+  origin: 'https://portal-news-n5yd.vercel.app', // frontend exacto
   credentials: true,
   methods: ['GET','POST','PUT','DELETE','OPTIONS'],
   allowedHeaders: ['Content-Type','Authorization']
