@@ -16,27 +16,32 @@ class UsuarioController {
     }
 
     // POST /login
-   async login(req, res) {
-    console.log("📨 Login:", req.body);
-    try {
-        const { email, password } = req.body;
-        console.log("Intentando autenticar usuario:", email);
-        const resultado = await usuarioService.autenticarUsuario(email, password);
-        if (resultado.success) {
-            const token = await client.get(`token:${resultado.usuario.id}`); // tu JWT
-            // Ya no usamos cookies, solo devolvemos token en JSON
-            res.status(200).json({
-                success: true,
-                usuario: resultado.usuario,
-                token // <-- aquí va el token
-            });
-        } else {
-            res.status(401).json(resultado);
+    async login(req, res) {
+        console.log("📨 Login:", req.body);
+        try {
+            const { email, password } = req.body;
+            console.log("Intentando autenticar usuario:", email);
+            const resultado = await usuarioService.autenticarUsuario(email, password);
+            if (resultado.success) {
+                const token=await client.get(`token:${resultado.usuario.id}`);
+                res.cookie('session',token,{
+                    httpOnly:true,
+                    secure:true,//process.env.NODE_ENV==='production',
+                    sameSite:'None',
+                    maxAge:2*60*60*1000 // 2 horas         
+                })
+                console.log("DIme porque ")
+                res.status(200).json({
+                    success: true,
+                    usuario:resultado.usuario,
+                });
+            } else {
+                res.status(401).json(resultado);
+            }
+        } catch (error) {
+            res.status(500).json({ success: false, error: error.message });
         }
-    } catch (error) {
-        res.status(500).json({ success: false, error: error.message });
     }
-}
 
     //  GET / (Listar todos)
     async listar(req, res) {
@@ -89,22 +94,22 @@ class UsuarioController {
         }
     }
 
-    async logout(req, res) {
-  try {
-    // Si quieres invalidar el token en Redis o base de datos:
-    const authHeader = req.headers['authorization'];
-    if (authHeader) {
-      const token = authHeader.split(' ')[1];
-      if (token) await client.del(`jwt:${token}`); // opcional, si guardas tokens activos
+    async logout(req,res){
+        try{
+            const token=req.cookies.session;
+            if(token) await client.del(token);
+            res.clearCookie("session",{
+                httpOnly:true,
+                secure: true,
+                sameSite:"None",
+                path:'/'
+            });
+            res.json({ok:true,message:"Logged out"});
+
+        }catch(err){
+            res.status(500).json({ok:false,error:"Logout failed"});
+        }
     }
-
-    // No hay cookies que limpiar
-    res.json({ ok: true, message: "Logged out" });
-  } catch (err) {
-    res.status(500).json({ ok: false, error: "Logout failed" });
-  }
-}
-
 }
 
 module.exports = new UsuarioController();
