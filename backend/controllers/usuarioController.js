@@ -89,22 +89,22 @@ class UsuarioController {
         }
     }
 
-    async logout(req,res){
-        try{
-            const token=req.cookies.session;
-            if(token) await client.del(token);
-            res.clearCookie("session",{
-                httpOnly:true,
-                secure: true,
-                sameSite:"None",
-                path:'/'
-            });
-            res.json({ok:true,message:"Logged out"});
-
-        }catch(err){
-            res.status(500).json({ok:false,error:"Logout failed"});
-        }
+    async logout(req, res) {
+  try {
+    // Si quieres invalidar el token en Redis o base de datos:
+    const authHeader = req.headers['authorization'];
+    if (authHeader) {
+      const token = authHeader.split(' ')[1];
+      if (token) await client.del(`jwt:${token}`); // opcional, si guardas tokens activos
     }
+
+    // No hay cookies que limpiar
+    res.json({ ok: true, message: "Logged out" });
+  } catch (err) {
+    res.status(500).json({ ok: false, error: "Logout failed" });
+  }
+}
+
 }
 
 module.exports = new UsuarioController();
