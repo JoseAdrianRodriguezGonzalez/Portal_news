@@ -16,27 +16,27 @@ class UsuarioController {
     }
 
     // POST /login
-    async login(req, res) {
-        console.log("📨 Login:", req.body);
-        try {
-            const { email, password } = req.body;
-            console.log("Intentando autenticar usuario:", email);
-            const resultado = await usuarioService.autenticarUsuario(email, password);
-            if (resultado.success) {
-                const token=await client.get(`token:${resultado.usuario.id}`);
-                res.setHeader('Set-Cookie', `session=${token}; HttpOnly; Secure; SameSite=None; Path=/; Partitioned`);
-                console.log("DIme porque ")
-                res.status(200).json({
-                    success: true,
-                    usuario:resultado.usuario,
-                });
-            } else {
-                res.status(401).json(resultado);
-            }
-        } catch (error) {
-            res.status(500).json({ success: false, error: error.message });
+   async login(req, res) {
+    console.log("📨 Login:", req.body);
+    try {
+        const { email, password } = req.body;
+        console.log("Intentando autenticar usuario:", email);
+        const resultado = await usuarioService.autenticarUsuario(email, password);
+        if (resultado.success) {
+            const token = await client.get(`token:${resultado.usuario.id}`); // tu JWT
+            // Ya no usamos cookies, solo devolvemos token en JSON
+            res.status(200).json({
+                success: true,
+                usuario: resultado.usuario,
+                token // <-- aquí va el token
+            });
+        } else {
+            res.status(401).json(resultado);
         }
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
     }
+}
 
     //  GET / (Listar todos)
     async listar(req, res) {

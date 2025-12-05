@@ -1,38 +1,40 @@
-<!--Here will be the login code for the website-->
 <script>
 import Box from "../lib/components/Box.svelte";
-let email="";
-let password="";
-const handleLogin=async(event) => {
+let email = "";
+let password = "";
+
+const handleLogin = async (event) => {
   event.preventDefault();
-  const payload={email,password}; //Arrelgo con el coreoy  la contra
-  console.log("Payload:",payload);
-  try{
+  const payload = { email, password };
+  try {
     const response = await fetch("/api/usuarios/login", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify(payload)
-});
-const data = await response.json();
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+    const data = await response.json();
+    console.log("data", data);
 
-    console.log("data",data);
-   if(data.success){
+    if (data.success) {
+      // Guardar token en localStorage
+      localStorage.setItem("token", data.token);
 
-      if(data.usuario.rol==="admin"){
-        window.location.href="/users/admin/";
-      }else if(data.usuario.rol==="journalist"){
-        window.location.href="/users/journalist/";
-      }else{
-        window.location.href="/";
+      if (data.usuario.rol === "admin") {
+        window.location.href = "/users/admin/";
+      } else if (data.usuario.rol === "journalist") {
+        window.location.href = "/users/journalist/";
+      } else {
+        window.location.href = "/";
       }
-    }else{
-      console.log("Login failed:",data.message);
+    } else {
+      console.log("Login failed:", data.message);
     }
-  }catch (error){
-    console.error("Error during login:",error);
+  } catch (error) {
+    console.error("Error during login:", error);
   }
-}
+};
 </script>
+
 <div class="w-full max-w-sm mx-auto p-4 sm:p-6 md:p-8 rounded-xl shadow-md bg-white">
   <div class="text-center mb-6">
     <h1 class="text-2xl md:text-3xl font-bold">Login to your account</h1>
