@@ -48,4 +48,4 @@ const NoticiaSchema = new mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('Noticia', NoticiaSchema);
+module.exports = mongoose.model('noticia', NoticiaSchema);
