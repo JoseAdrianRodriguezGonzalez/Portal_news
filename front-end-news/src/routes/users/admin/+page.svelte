@@ -1,4 +1,4 @@
-<<script>
+<script>
   export let usuarios = [];   // ⬅⬅⬅ IMPORTANTE
   import { goto } from "$app/navigation";
 
@@ -18,7 +18,7 @@
       console.log("Error al eliminar:", errorData);
     }
   }
-</>
+</script>
 
 
 {#each usuarios ?? [] as usuario (usuario.id)}
