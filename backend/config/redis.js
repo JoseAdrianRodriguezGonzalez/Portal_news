@@ -1,7 +1,7 @@
 const { createClient } = require('redis');
 
 const client = createClient({
-    url: process.env.REDIS_URL//`redis://${process.env.REDIS_HOST || 'redis'}:6379`
+    url: "redis://default:OFCIHTDnapnFWRhylBSpiLzqHcwduFMh@centerbeam.proxy.rlwy.net:13511"   //`redis://${process.env.REDIS_HOST || 'redis'}:6379`
 });
 
 client.on('error', (err) => console.log('Error de Cliente Redis', err));
