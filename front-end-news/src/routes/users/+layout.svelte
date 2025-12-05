@@ -21,7 +21,7 @@ console.log("Current Path:", $page.url.pathname, "showTable:", showTableLayout);
 let toggled = false;
 
 async function toggle() {
-  await fetch(`http://localhost:3000/api/usuarios/logout`,{
+  await fetch(`https://portalnews-production.up.railway.app/api/usuarios/logout`,{
     method:"POST",
     credentials:"include"
   })

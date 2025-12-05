@@ -4,7 +4,7 @@ export const load = async ({  fetch,cookies,url }) => {
     const actualPath= url.pathname;
     const session = cookies.get("session");
     console.log("COOKIE DESDE SSR:", session);
-    const res = await fetch('https://portalnews-production.up.railway.app:3000/api/usuarios/', {
+    const res = await fetch('https://portalnews-production.up.railway.app/api/usuarios/', {
         method:"GET",
         headers:{
             cookie:`session=${session}`
@@ -12,7 +12,7 @@ export const load = async ({  fetch,cookies,url }) => {
     });
      if (!res.ok) {
         let noticias=[];
-        const noticiasRes=await fetch(`https://portalnews-production.up.railway.app:3000/api/noticias/`,{method:"GET"})
+        const noticiasRes=await fetch(`https://portalnews-production.up.railway.app/api/noticias/`,{method:"GET"})
         if(noticiasRes.ok){
             noticias=await noticiasRes.json();
         }
