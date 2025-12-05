@@ -8,7 +8,7 @@ const handleLogin=async(event) => {
   const payload={email,password}; //Arrelgo con el coreoy  la contra
   console.log("Payload:",payload);
   try{
-    onst response = await fetch("/api/usuarios/login", {
+    const response = await fetch("/api/usuarios/login", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify(payload)
