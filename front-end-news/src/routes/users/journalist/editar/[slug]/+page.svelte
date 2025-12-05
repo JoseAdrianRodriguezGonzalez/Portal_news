@@ -60,7 +60,7 @@
 			resumen
 		};
 
-		const res = await fetch(`http://localhost:3000/api/noticias/${id}`, {
+		const res = await fetch(`https://portalnews-production.up.railway.app/api/noticias/${id}`, {
 			method: "PUT",
 			headers: { "Content-Type": "application/json" },
 			credentials: "include",

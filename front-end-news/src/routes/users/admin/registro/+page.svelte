@@ -8,7 +8,7 @@
   let password= '';
  
 async function createUser(){
-  const res=await fetch(`https://portalnews-production.up.railway.app:3000/api/usuarios/registro`,{
+  const res=await fetch(`https://portalnews-production.up.railway.app/api/usuarios/registro`,{
     method:"POST",
     credentials:"include",
     headers:{

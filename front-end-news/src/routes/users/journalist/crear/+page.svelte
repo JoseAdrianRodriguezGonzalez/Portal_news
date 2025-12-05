@@ -53,7 +53,7 @@ $: console.log("H1 extraído:", extraerTitulo(json));
             categoria,
             resumen 
         }
-        const res=await fetch("https://portalnews-production.up.railway.app:3000/api/noticias/",{
+        const res=await fetch("https://portalnews-production.up.railway.app/api/noticias/",{
             method:"POST",
             headers:{"Content-Type":"application/json"},
             credentials:"include",

@@ -9,7 +9,7 @@
   console.log("UsuarioActual:", usuario);
   async function updateUser(id){
     console.log(id);
-    const res=await fetch(`https://portalnews-production.up.railway.app:3000/api/usuarios/${id}`,{
+    const res=await fetch(`https://portalnews-production.up.railway.app/api/usuarios/${id}`,{
       method:"PUT",
       credentials:"include",
       headers:{
