@@ -30,6 +30,7 @@ class UsuarioController {
                     sameSite:'None',
                     maxAge:2*60*60*1000 // 2 horas         
                 })
+                console.log("DIme porque ")
                 res.status(200).json({
                     success: true,
                     usuario:resultado.usuario,
@@ -99,8 +100,8 @@ class UsuarioController {
             if(token) await client.del(token);
             res.clearCookie("session",{
                 httpOnly:true,
-                secure: false,
-                sameSite:"lax",
+                secure: true,
+                sameSite:"None",
                 path:'/'
             });
             res.json({ok:true,message:"Logged out"});
