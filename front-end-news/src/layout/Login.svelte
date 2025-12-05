@@ -20,10 +20,12 @@ const handleLogin = async (event) => {
       localStorage.setItem("token", data.token);
 
       if (data.usuario.rol === "admin") {
+                console.log("AQui te trasladaron al admn")
         window.location.href = "/users/admin/";
       } else if (data.usuario.rol === "journalist") {
         window.location.href = "/users/journalist/";
       } else {
+        console.log("AQui te trasladaron")
         window.location.href = "/";
       }
     } else {
